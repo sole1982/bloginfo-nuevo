@@ -96,6 +96,19 @@
         style="max-width: 50px; max-height: 50px; cursor: pointer; border-radius: 50%;"
     >
     <div id="logout-dropdown" style="display: none; position: absolute; top: 100%; left: 0; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+      <table>
+        <tr>
+         {% if user.is_superuser or request.user|has_group:"colaborador" %}
+            <td><a href="{% url 'apps.usuario:usuario_list' %}">Lista de usuarios</a></td>
+         {% endif %}
+       </tr>
+       <tr>
+          <td><a href="#">Lista de categorías</a></td>
+       </tr>
+       <tr>
+           <td><a href="#">Lista de posts</a></td>
+       </tr>
+     </table>
         <a class="nav-item me-4" href="{% url 'apps.usuario:logout' %}">Cerrar Sesión</a>
     </div>
 </li>
