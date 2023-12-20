@@ -208,36 +208,40 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3 mb-4">
-        <h3 class="text-primary">Categorías</h3>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-light">Información general</a></li>
-          <li><a href="#" class="text-light">Biodiversidad</a></li>
-          <li><a href="#" class="text-light">Reciclaje</a></li>
-          <li><a href="#" class="text-light">Cambio rlimático</a></li>
-          <li><a href="#" class="text-light">Vida Verde</a></li>
-          <li><a href="#" class="text-light">Energías renovables</a></li>
-          <li><a href="#" class="text-light">Huerta familiar</a></li>
-          <li><a href="#" class="text-light">Permacultura</a></li>
-          <li><a href="#" class="text-light">Educación Ambiental</a></li>
+        <div class="dropdown">
+          <button class="btn btn-success dropdown-toggle" type="button" id="categoriasDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Explorar categorías
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="categoriasDropdown">
+            <li><a class="dropdown-item" href="#">Información general</a></li>
+            <li><a class="dropdown-item" href="#">Biodiversidad</a></li>
+            <li><a href="#" class="text-light">Reciclaje</a></li>
+            <li><a href="#" class="text-light">Cambio rlimático</a></li>
+            <li><a href="#" class="text-light">Vida Verde</a></li>
+            <li><a href="#" class="text-light">Energías renovables</a></li>
+            <li><a href="#" class="text-light">Huerta familiar</a></li>
+            <li><a href="#" class="text-light">Permacultura</a></li>
+            <li><a href="#" class="text-light">Educación Ambiental</a></li>
+          </ul>
+        </div>
+        <a href="#" class="btn btn-success mt-3">Subir</a>
+      </div>
+      <div class="col-md-3 mb-4">
+        <h3 class="text-success">Últimas Noticias</h3>
+        <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming quod mazim placerat facer possim assum orem ipsum dolor sit amet consectetuer.</p>
+        <a href="#" class="btn btn-success mt-3">Más</a>
+      </div>
+      <div class="col-md-3 mb-4">
+        <h3 class="text-success">Contacto</h3>
+        <ul class="list-unstyled" style="margin-bottom: 20px">
+          <li>Av. SiempreViva n° 742</li>
+          <li>comision2.grupo4@gmail.com</li>
+          <li>Teléfono: 03 03 456</li>
         </ul>
-        <a href="#" class="btn btn-primary mt-3">Más</a>
+        <a href="{% url 'apps.contacto:contacto' %}" class="btn btn-success mt-3">Contáctanos</a>
       </div>
       <div class="col-md-3 mb-4">
-        <h3 class="text-primary">Últimas Noticias</h3>
-        <p>Nam liber tempor cum soluta nobis eleifend option congue nihimperdiet doming quod mazim placerat facer possim assum orem ipsum dolor sit amet consectetuer.</p>
-        <a href="#" class="btn btn-primary mt-3">Más</a>
-      </div>
-      <div class="col-md-3 mb-4">
-        <h3 class="text-primary">Contacto</h3>
-        <ul class="list-unstyled" style="margin-bottom: 20px>
-          <li class="text-light">Av. SiempreViva n° 742</li>
-          <li class="text-light">comision2.grupo4@gmail.com</li>
-          <li class="text-light">Teléfono: 03 03 456</li>
-        </ul>
-        <a href="{% url 'apps.contacto:contacto' %}" class="btn btn-primary mt-3">Contáctanos</a>
-      </div>
-      <div class="col-md-3 mb-4">
-        <h4 class="text-primary">Redes Sociales</h4>
+        <h4 class="text-success">Redes Sociales</h4>
         <ul class="list-unstyled">
           <li><a href="https://www.facebook.com" target="_blank" class="text-light">Facebook</a></li>
           <li><a href="https://twitter.com" target="_blank" class="text-light">Twitter</a></li>
@@ -250,12 +254,13 @@
       <div class="col-md-12">
         <div class="footer-bg text-center p-3">
           <p class="text-light" id="website">VidaVerde.com &copy; 2023
-          <span>- Website creada por <a target="_blank" href="#" class="text-light">Comisión 2 - Grupo 4</a></span></p>
+            <span>- Website creada por <a target="_blank" href="#" class="text-light">Comisión 2 - Grupo 4</a></span></p>
         </div>
       </div>
     </div>
   </div>
 </footer>
+
 
 
 
