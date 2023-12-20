@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy 
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 
@@ -25,16 +26,17 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
         #context['comentarios'] = Comentario.objects.filter(post_id= self.kwargs['id'])
+        context [ 'comentarios' ] =  Comentario . objetos . filtro ( id = self . kwargs [ 'id' ])
         return context
     
     def posts(self, request, *args, **kwargs):
-        form = ComentarioForm(request.Post)
+        form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.usuario = request.user 
             comentario.posts_id = self.kwargs['id'] 
             comentario.save()
-            return redirect('apps.posts:post_individual' , self.kwargs['id'] ) 
+            return redirect('apps.posts:post_individual' ,id = self.kwargs['id'] ) 
         else:
             context = self.get_context_data(**kwargs)
             context['form'] = form
@@ -47,7 +49,8 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
     success_url= 'comentario/comentarios'
 
     def form_valid(self, form):
-        form.instance.usuario = self.request.userform.instance.posts_id = self.kwargs['id'] 
+        form.instance.usuario = self.request.user
+        form.instance.posts_id = self.kwargs['posts_id'] 
         return super().form_valid(form)
     
     
