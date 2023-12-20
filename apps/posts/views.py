@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import redirect
 from .models import Post, Comentario, Categoria
-from django.views.generic import ListView, DetailView,  DeleteView
+from django.views.generic import ListView, DetailView,  DeleteView, UpdateView
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy 
@@ -76,7 +76,19 @@ class CategorialistView(ListView):
     context_object_name = 'categorias'
     
 
-class CategoriaDeleteView(DeleteView):
+class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
     model= Categoria
     template_name = 'post/categoria_confirm_delete.html'
     success_url = reverse_lazy('apps.posts:categoria_list')
+
+
+class PostUpdateView(LoginRequiredMixin,UpdateView):
+    model = Post
+    form_class = CrearPostForm
+    template_name = 'post/modificar_posts.hmtl'
+    success_url = reverse_lazy('apps.posts:posts')
+
+class PostDeleteView(DeleteView):
+    model=Post
+    template_name= 'post/eliminar_post.html'
+    success_url = reverse_lazy('apps.posts:posts')

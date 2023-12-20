@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
-
+{% load colaborador_tags %}
 {% block contenido %}
 
 <div class="container-fluid">
@@ -47,7 +47,19 @@
         <h3>{{ posts.subtitulo }}</h3>
         <p>{{ posts.categoria }}</p>
         <p>{{ posts.texto }}</p>
+        {% if posts.imagen %} 
         <img src="{{ posts.imagen.url }}" alt="">
+        {% else %}
+        <p>No hay imágen disponible</p>
+        {% endif %}
+        {% if user.is_superuser or request.user|has_group:"colaborador" %}
+        <div class="container-fluid" style="margin:top 300px;">
+           <a id="boton_post" href="{% url 'apps.posts:post_update' pk=posts.id %}"> Modificar Post</a>
+        </div>
+        <div class="container-fluid" style="margin-top: 300px;">
+           <a id="boton_post" href="{% url 'apps.posts:post_delete' pk=posts.pk %}">Eliminar Post</a>
+        </div>
+        {% endif %}
       </div>
 
       <div class="container-fluid" style="margin-bottom: 20px;">
