@@ -11,4 +11,6 @@ path('categoria/', CategorialistView.as_view(), name ='categoria_list'),
 path('categoria/, <int:pk>/delete/', CategoriaDeleteView.as_view(), name='categoria_delete'),
 path('post/<int:pk>/modificar/',PostUpdateView.as_view(), name = 'post_update'),
 path('post/<int:pk>/eliminar/',PostDeleteView.as_view(), name = 'post_delete'),
+path('comentario/<int:pk>/editar',ComentarioUpdateView.as_view(), name = 'comentario_editar'),
+path('comentario/<int:pk>/eliminar',ComentarioDeleteView.as_view(), name = 'comentario_eliminar'),
 ]
