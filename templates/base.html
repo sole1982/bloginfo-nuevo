@@ -87,31 +87,30 @@
 </li>
 
 <li><a class="nav-item me-4" href="{% url 'apps.contacto:contacto' %}">Contacto</a></li> 
+
 {% if user.is_authenticated %}
-<li id="logout-option" style="position: relative;" class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="usuario-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleLogoutOption()">
-      <img
-          src="{{ user.imagen.url }}"
-          alt="imagen_usuario"
-          id="usuario-imagen"
-          style="max-width: 50px; max-height: 50px; cursor: pointer; border-radius: 50%; margin-right: 10px;"
-      >
-      {{ user.username }}
-  </a>
-  <div id="logout-dropdown" class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-      <a class="dropdown-item btn btn-success" href="{% url 'apps.usuario:logout' %}" style="display: block; width: 100%; text-align: left; padding: 10px; color: #fff;">
-          Cerrar Sesión
-      </a>
-      {% if user.is_superuser or request.user|has_group:"colaborador" %}
-       <a href="{% url 'apps.usuario:usuario_list' %}"> Lista de usuario</a>
-      {% endif %}
-      <a href="#"> Lista de categorias</a>
-      <a href="#"> Lista de post</a>
-  </div>
-</li>
+    <li id="logout-option" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="usuario-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleLogoutOption()">
+            <img src="{{ user.imagen.url }}" alt="imagen_usuario" id="usuario-imagen" class="rounded-circle" style="max-width: 50px; max-height: 50px; cursor: pointer; margin-right: 10px;">
+            {{ user.username }}
+        </a>
+        <div id="logout-dropdown" class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            {% if user.is_superuser or request.user|has_group:"colaborador" %}
+                <div>
+                    <a class="dropdown-item" href="{% url 'apps.usuario:usuario_list' %}">Lista de usuarios</a>
+                </div>
+            {% endif %}
+            <a class="dropdown-item" href="#">Lista de categorías</a>
+            <a class="dropdown-item" href="#">Lista de posts</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'apps.usuario:logout' %}">Cerrar Sesión</a>
+        </div>
+    </li>
 {% else %}
-<li><a class="nav-item me-4" href="{% url 'apps.usuario:login' %}">Iniciar Sesión</a></li>
+    <li><a class="nav-item me-4" href="{% url 'apps.usuario:login' %}">Iniciar Sesión</a></li>
 {% endif %}
+
+
 
 </ul>
 
@@ -235,7 +234,13 @@
           </ul>
         </div>
         <a href="#" class="btn btn-success mt-3">Subir</a>
+
+        <a href="#" class="d-block mx-auto mt-3">
+          <img src="{% static 'img/logoFoco.jpg' %}" alt="logo-imagen" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
+      </a>
+
       </div>
+
       <div class="col-md-3 mb-4">
         <h3 class="text-success">Últimas Noticias</h3>
         <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming quod mazim placerat facer possim assum orem ipsum dolor sit amet consectetuer.</p>
@@ -285,11 +290,31 @@
       var dropdown = document.getElementById("logout-dropdown");
       var target = event.target;
       var usuarioDropdown = document.getElementById("usuario-dropdown");
-
+ 
       if (!usuarioDropdown.contains(target) && !dropdown.contains(target)) {
           dropdown.style.display = "none";
       }
   });
+
+//Desplazamiento de la imagen hacia el inicio
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $("a[href='#']").on('click', function(event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function(){
+                    window.location.hash = hash;
+                });
+            }
+        });
+    });
+
+
 </script>
 
     
