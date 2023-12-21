@@ -68,7 +68,7 @@ class CategoriaCreateView(CreateView):
         if next_url:
             return next_url
         else: 
-            return reverse_lazy('apps.posts:post_create')
+            return reverse_lazy('apps.posts:categoria_list')
         
 class CategorialistView(ListView):
     model = Categoria
