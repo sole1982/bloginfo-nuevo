@@ -12,7 +12,12 @@
   <a id="boton_post" href="{% url 'apps.posts:crear_post' %}" class="btn btn-success float-end">Crear nuevo Post</a>
 </div>
 {% endif %}
-
+<h2>Ordenar por:</h2>
+<ul>
+    <a id="boton_post" href="{% url 'apps.posts:posts' %}?orden=reciente">Más reciente</a>
+    <a id="boton_post" href="{% url 'apps.posts:posts' %}?orden=antiguo">Más antiguo</a>
+    <a id="boton_post" href="{% url 'apps.posts:posts' %}?orden=alfabetico">Orden alfabético</a>
+</ul>
 <main class="container mx-auto">
   {% if posts %}
     {% with latest_post=posts.last %}

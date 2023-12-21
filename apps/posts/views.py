@@ -1,4 +1,5 @@
 from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import redirect
 from .models import Post, Comentario, Categoria
 from django.views.generic import ListView, DetailView,  DeleteView, UpdateView
@@ -13,6 +14,22 @@ class PostListView(ListView):
     model = Post
     template_name = "post/posts.html"
     context_object_name = "posts"
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        orden = self.request.GET.get('orden')
+        if orden == 'reciente':
+            queryset = queryset.order_by('-fecha')
+        elif orden == 'antiguo':
+            queryset = queryset.order_by('fecha')
+        elif orden == 'alfabeto':
+            queryset = queryset.order_by('titulo')
+        return queryset
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['orden'] = self.request.GET.get('orden','reciente')
+        return context 
 
 class PostDetailView(DetailView):
     model = Post
@@ -115,3 +132,11 @@ class ComentarioDeleteView(LoginRequiredMixin,DeleteView):
 
     def get_success_url(self):
         return reverse('apps.posts:post_individual',args = [self.object.posts.id])
+    
+class PostsPorCategoria(ListView):
+    model = Post
+    template_name = 'post/posts_por_categoria.html'
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        return Post.objects.filter(categoria_id=self.kwargs['pk'])
