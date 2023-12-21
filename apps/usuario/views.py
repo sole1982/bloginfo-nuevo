@@ -19,7 +19,7 @@ class RegistrarUsuario(CreateView):
         group = Group.objects.get(name = 'registrado')
         self.object.groups.add(group)
         form.save()
-        return redirect('registration/login.html')
+        return redirect('login')
 
 class LoginUsuario(LoginView):
     template_name = 'registration/login.html'
