@@ -62,16 +62,16 @@
         {% endif %}
       </div>
 
-      <div class="container-fluid" style="margin-bottom: 20px;">
+      <!--<div class="container-fluid" style="margin-bottom: 20px;">
         <h4>Comentarios</h4>
-        {% for comentario in comentarios %}
-          <div>
-            <p>{{ comentario.usuario }} - {{ comentario.fecha }}</p>
-            <p>{{ comentario.texto }}</p>
-          </div>
-        {% empty %}
+          {% for comentario in comentarios %}
+             <div>
+               <p>{{ comentario.usuario }} - {{ comentario.fecha }}</p>
+               <p>{{ comentario.texto }}</p>
+             </div>
+           {% empty %}
           <p>No hay comentarios</p>
-        {% endfor %}
+          {% endfor %}
       </div>
 
       <a id="comentario"></a>
@@ -94,7 +94,8 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
+      {% include 'comentario/crear_comentario.html' %}
 
 
 {% endblock %}

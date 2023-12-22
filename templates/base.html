@@ -20,13 +20,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
-
+<script src="{% static 'js/color-modes.js' %}"></script>
   
 </head>
 
 <body>
-    <!--Opciones temas oscuro o claro-->
-    <head><script src="{% static 'js/color-modes.js' %}"></script>
+<header>
 <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
   <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
           id="bd-theme"
@@ -75,17 +74,20 @@
 
 <li class="nav-item dropdown"><a class="nav-link me-3"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
  <ul class="dropdown-menu" style="background-color: rgba(221, 230, 222, 0.102);">
-  
-    <li><a class="dropdown-item" href="#"> Información General </a> </li>
-    <li><a class="dropdown-item" href="#"> Biodiversidad </a> </li>
-    <li><a class="dropdown-item" href="#"> Reciclaje </a> </li>
-    <li><a class="dropdown-item" href="#"> Cambio Climático </a> </li>
-    <li><a class="dropdown-item" href="#"> Vida Verde </a> </li>
-    <li><a class="dropdown-item" href="#">Energías Renovables  </a> </li>
-    <li><a class="dropdown-item" href="#"> Huerta Familiar </a> </li>
-    <li><a class="dropdown-item" href="#"> Permacultura </a> </li>
-    <li><a class="dropdown-item" href="#"> Educación Ambiental </a> </li>          
+          {% for categoria in categorias %}
+            <li>{{ categoria.nombre }}</li>
+    <li><a class="dropdown-item" href="/categoria/"    > {{ categoria.nombre }}</a> </li>
+     {% empty %}
+    <li>No hay categoría</li>
+            {% endfor %}        
     <li>
+ {% for usuario in usuarios %}
+      <li>  {{ usuario.username }}</li>
+      (<a style="color: black;"
+      href="{% url 'apps.usuario:usuario_delete' pk=usuario.pk %}">Eliminar</a>) </li>
+    {% empty %}
+      <li>No hay usuarios</li>
+ {% endfor %}  
       <hr class="dropdown-divider">
     </li>
     <li><a class="dropdown-item" href="#">Todas</a></li>
@@ -195,7 +197,10 @@
         </ul>
 
       <br>
-        
+      <form class="d-flex mt-3" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322);">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
         <svg xmlns="http://www.w3.org/2000/svg" width="188" height="305" viewBox="0 0 188 305" fill="none" style="position: absolute; bottom: 0; right: 0; z-index: -1;   "      >
           <path d="M191.9 99.9334C191.9 99.9334 232.116 129.382 228.163 159.671C224.209 189.961 159.015 191.238 179.787 198.699C200.56 206.16 233.805 177.693 233.805 177.693C233.805 177.693 245.685 186.285 236.554 228.711C227.406 271.128 150.905 252.019 150.905 252.019C78.6999 361.589 40.583 266.258 40.5375 254.525C40.4921 242.792 100.426 241.176 96.0962 234.715C91.7838 228.262 58.4477 244.836 37.9976 241.044C17.5475 237.252 -3.65166 180.425 1.17832 164.988C6.00829 149.551 56.6098 191.33 56.3062 174.275C56.0026 157.22 -10.7675 171.445 2.6148 112.922C15.9971 54.3993 12.3311 61.2303 37.9065 103.718C63.4647 146.197 97.2717 128.534 75.3197 116.274C-5.90397 70.8967 50.1481 0.43127 50.1481 0.43127C147.098 35.917 105.29 111.089 118.1 109.999C130.883 108.917 107.325 26.3484 123.192 41.1671C139.06 55.9858 163.434 38.7258 179.69 70.489C195.936 102.269 143.379 153.02 164.43 161.154C185.481 169.288 191.917 99.943 191.917 99.943L191.9 99.9334ZM73.3365 193.681C57.0618 189.871 43.8095 195.398 45.85 204.233C47.8906 213.069 80.8665 211.83 80.8665 211.83C92.1632 207.309 89.6208 197.474 73.3365 193.681ZM137.683 130.24C124.205 144.467 123.009 151.795 124.108 158.237C124.108 158.237 142.329 151.67 145.745 138.734C149.171 125.78 151.178 116.022 137.683 130.24ZM179.547 217.501C169.457 221.432 157.833 222.777 163.977 230.429C163.977 230.429 181.471 237.349 188.494 228.288C195.527 219.211 189.638 213.569 179.547 217.501Z" fill="#B7D331"/>
         </svg>
@@ -208,9 +213,10 @@
   </div>
 </nav>
 
-
+</header>
 
       {% block contenido %} 
+
       {% endblock %}
 
 
