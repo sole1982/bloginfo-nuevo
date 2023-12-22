@@ -102,7 +102,7 @@ class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
 class PostUpdateView(LoginRequiredMixin,UpdateView):
     model = Post
     form_class = CrearPostForm
-    template_name = 'post/modificar_posts.hmtl'
+    template_name = 'post/modificar_post.html'
     success_url = reverse_lazy('apps.posts:posts')
 
 
