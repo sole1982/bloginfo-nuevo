@@ -82,9 +82,16 @@
     {% endif%}
     </form>
 
-
-    
-    </div>
+      <!--<div class="container-fluid" style="margin-bottom: 20px;">
+        <h4>Comentarios</h4>
+          {% for comentario in comentarios %}
+             <div>
+               <p>{{ comentario.usuario }} - {{ comentario.fecha }}</p>
+               <p>{{ comentario.texto }}</p>
+             </div>
+           {% empty %}
+          <p>No hay comentarios</p>
+          {% endfor %}
       </div>
     
       
@@ -94,13 +101,8 @@
       </div>
     </div>
   </div>
-</div>
-<script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>    
-<script src=" {% static 'js/cheatsheet.js' %} "></script>
-</body>
-
-   
-  
+</div>-->
+      {% include 'comentario/crear_comentario.html' %}
 
 
 

@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load colaborador_tags %}
 <!DOCTYPE html>
 <html lang="es-ar"  data-bs-theme="auto"         >
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title  %} Vida Verde  {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="icon" href="{% static 'img/logofavicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'img/logoVerdeFavicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/barranavegacion.css' %}">
 
 <!--Boostrap v5.3-->
@@ -20,12 +20,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
-
+<script src="{% static 'js/color-modes.js' %}"></script>
   
 </head>
 
 <body>
-    <!--Opciones temas oscuro o claro-->
+<header>
 <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
   <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
           id="bd-theme"
@@ -62,23 +62,32 @@
 </div>
 <!--navbar horizontal -->
 <div class="navegacion-horizontal navbar d-none d-sm-flex">
-<li><a class="nav-item ms-3" href="/">Vida Verde</a></li>
+  <li>
+    <a href="/" class="d-block mx-auto">
+      <img src="{% static 'img/logoVerde.png' %}" alt="logo-imagen" class="img-fluid" style="width: 200px; height: 50px;">
+    </a>
+  
+  </li>
+<li><a class="nav-item ms-3" href="/">Inicio</a></li>
 <li><a class="nav-item" href="{% url 'apps.posts:posts' %}">Post</a></li> 
  
 
-<li class="nav-item dropdown"><a class="nav-link me-3"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Noticias</a>
+<li class="nav-item dropdown"><a class="nav-link me-3"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
  <ul class="dropdown-menu" style="background-color: rgba(221, 230, 222, 0.102);">
-  
-    <li><a class="dropdown-item" href="#"> Información General </a> </li>
-    <li><a class="dropdown-item" href="#"> Biodiversidad </a> </li>
-    <li><a class="dropdown-item" href="#"> Reciclaje </a> </li>
-    <li><a class="dropdown-item" href="#"> Cambio Climático </a> </li>
-    <li><a class="dropdown-item" href="#"> Vida Verde </a> </li>
-    <li><a class="dropdown-item" href="#">Energías Renovables  </a> </li>
-    <li><a class="dropdown-item" href="#"> Huerta Familiar </a> </li>
-    <li><a class="dropdown-item" href="#"> Permacultura </a> </li>
-    <li><a class="dropdown-item" href="#"> Educación Ambiental </a> </li>          
+          {% for categoria in categorias %}
+            <li>{{ categoria.nombre }}</li>
+    <li><a class="dropdown-item" href="/categoria/"    > {{ categoria.nombre }}</a> </li>
+     {% empty %}
+    <li>No hay categoría</li>
+            {% endfor %}        
     <li>
+ {% for usuario in usuarios %}
+      <li>  {{ usuario.username }}</li>
+      (<a style="color: black;"
+      href="{% url 'apps.usuario:usuario_delete' pk=usuario.pk %}">Eliminar</a>) </li>
+    {% empty %}
+      <li>No hay usuarios</li>
+ {% endfor %}  
       <hr class="dropdown-divider">
     </li>
     <li><a class="dropdown-item" href="#">Todas</a></li>
@@ -86,26 +95,37 @@
 </li>
 
 <li><a class="nav-item me-4" href="{% url 'apps.contacto:contacto' %}">Contacto</a></li> 
+
+<form class="d-flex" role="search">
+  <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322); font-size: 12px;">
+  <button class="btn btn-outline-success" type="submit" style="font-size: 12px; padding: 6px 12px;">Buscar</button>
+</form>
+
+
 {% if user.is_authenticated %}
-<li id="logout-option" style="position: relative;" class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="usuario-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleLogoutOption()">
-      <img
-          src="{{ user.imagen.url }}"
-          alt="imagen_usuario"
-          id="usuario-imagen"
-          style="max-width: 50px; max-height: 50px; cursor: pointer; border-radius: 50%; margin-right: 10px;"
-      >
-      {{ user.username }}
-  </a>
-  <div id="logout-dropdown" class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-      <a class="dropdown-item btn btn-danger" href="{% url 'apps.usuario:logout' %}" style="display: block; width: 100%; text-align: left; padding: 10px; color: #fff;">
-          Cerrar Sesión
+    <li id="logout-option" class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="usuario-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleLogoutOption()">
+          <img src="{{ user.imagen.url }}" alt="imagen_usuario" id="usuario-imagen" class="rounded-circle" style="max-width: 50px; max-height: 50px; cursor: pointer; margin-right: 10px;">
+          {{ user.username }}
       </a>
-  </div>
-</li>
+      <div id="logout-dropdown" class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); background-color: #fff;">
+    
+          {% if user.is_superuser or request.user|has_group:"colaborador" %}
+              <a class="dropdown-item" href="{% url 'apps.usuario:usuario_list' %}" style="color: green;">Lista de     usuarios</a>
+          {% endif %}
+          <a class="dropdown-item" href="#" style="color: green;">Lista de categorías</a>
+          <a class="dropdown-item" href="#" style="color: green;">Lista de posts</a>
+    
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'apps.usuario:logout' %}" style="color: blue;">Cerrar Sesión</a>
+      </div>
+    </li>
+
 {% else %}
-<li><a class="nav-item me-4" href="{% url 'apps.usuario:login' %}">Iniciar Sesión</a></li>
+    <li><a class="nav-item me-4" href="{% url 'apps.usuario:login' %}">Iniciar Sesión</a></li>
 {% endif %}
+
+
 
 </ul>
 
@@ -177,11 +197,10 @@
         </ul>
 
       <br>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322);">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
-        
+      <form class="d-flex mt-3" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322);">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
         <svg xmlns="http://www.w3.org/2000/svg" width="188" height="305" viewBox="0 0 188 305" fill="none" style="position: absolute; bottom: 0; right: 0; z-index: -1;   "      >
           <path d="M191.9 99.9334C191.9 99.9334 232.116 129.382 228.163 159.671C224.209 189.961 159.015 191.238 179.787 198.699C200.56 206.16 233.805 177.693 233.805 177.693C233.805 177.693 245.685 186.285 236.554 228.711C227.406 271.128 150.905 252.019 150.905 252.019C78.6999 361.589 40.583 266.258 40.5375 254.525C40.4921 242.792 100.426 241.176 96.0962 234.715C91.7838 228.262 58.4477 244.836 37.9976 241.044C17.5475 237.252 -3.65166 180.425 1.17832 164.988C6.00829 149.551 56.6098 191.33 56.3062 174.275C56.0026 157.22 -10.7675 171.445 2.6148 112.922C15.9971 54.3993 12.3311 61.2303 37.9065 103.718C63.4647 146.197 97.2717 128.534 75.3197 116.274C-5.90397 70.8967 50.1481 0.43127 50.1481 0.43127C147.098 35.917 105.29 111.089 118.1 109.999C130.883 108.917 107.325 26.3484 123.192 41.1671C139.06 55.9858 163.434 38.7258 179.69 70.489C195.936 102.269 143.379 153.02 164.43 161.154C185.481 169.288 191.917 99.943 191.917 99.943L191.9 99.9334ZM73.3365 193.681C57.0618 189.871 43.8095 195.398 45.85 204.233C47.8906 213.069 80.8665 211.83 80.8665 211.83C92.1632 207.309 89.6208 197.474 73.3365 193.681ZM137.683 130.24C124.205 144.467 123.009 151.795 124.108 158.237C124.108 158.237 142.329 151.67 145.745 138.734C149.171 125.78 151.178 116.022 137.683 130.24ZM179.547 217.501C169.457 221.432 157.833 222.777 163.977 230.429C163.977 230.429 181.471 237.349 188.494 228.288C195.527 219.211 189.638 213.569 179.547 217.501Z" fill="#B7D331"/>
         </svg>
@@ -194,9 +213,10 @@
   </div>
 </nav>
 
-
+</header>
 
       {% block contenido %} 
+
       {% endblock %}
 
 
@@ -229,7 +249,13 @@
           </ul>
         </div>
         <a href="#" class="btn btn-success mt-3">Subir</a>
+
+        <a href="/" class="d-block mx-auto mt-6">
+          <img src="{% static 'img/logoVerde.png' %}" alt="logo-imagen" class="img-fluid" style="width: 200px; height: 50px;">
+        </a>
+
       </div>
+
       <div class="col-md-3 mb-4">
         <h3 class="text-success">Últimas Noticias</h3>
         <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming quod mazim placerat facer possim assum orem ipsum dolor sit amet consectetuer.</p>
@@ -244,13 +270,41 @@
         </ul>
         <a href="{% url 'apps.contacto:contacto' %}" class="btn btn-success mt-3">Contáctanos</a>
       </div>
+
       <div class="col-md-3 mb-4">
         <h4 class="text-success">Redes Sociales</h4>
         <ul class="list-unstyled">
-          <li><a href="https://www.facebook.com" target="_blank" class="text-light">Facebook</a></li>
-          <li><a href="https://twitter.com" target="_blank" class="text-light">Twitter</a></li>
-          <li><a href="https://www.instagram.com" target="_blank" class="text-light">Instagram</a></li>
+          <li class="mb-2">
+              <a href="https://www.facebook.com" target="_blank" class="text-light d-flex align-items-center">
+                  <img src="{% static 'img/facebook.png' %}" alt="Facebook" width="30" class="me-1">
+                  Facebook
+              </a>
+          </li>
+      
+          <li class="mb-2">
+              <a href="https://twitter.com" target="_blank" class="text-light d-flex align-items-center">
+                  <img src="{% static 'img/ex.png' %}" alt="X" width="30" class="me-1">
+                  X
+              </a>
+          </li>
+      
+          <li class="mb-2">
+              <a href="https://www.instagram.com" target="_blank" class="text-light d-flex align-items-center">
+                  <img src="{% static 'img/instagram.png' %}" alt="Instagram" width="30" class="me-1">
+                  Instagram
+              </a>
+          </li>
+      
+          <li>
+              <a href="https://www.youtube.com" target="_blank" class="text-light d-flex align-items-center">
+                  <img src="{% static 'img/youtube.png' %}" alt="YouTube" width="30" class="me-1">
+                  YouTube
+              </a>
+          </li>
         </ul>
+      
+
+      
       </div>
     </div>
 
@@ -267,13 +321,46 @@
 
 
 
-
 <script>
+// Abrir y Cerrar el menú de usuario al hacer clic afuera
+
   function toggleLogoutOption() {
       var logoutDropdown = document.getElementById("logout-dropdown");
       logoutDropdown.style.display = (logoutDropdown.style.display === "none" || logoutDropdown.style.display === "") ? "block" : "none";
   }
+
+  document.addEventListener("click", function(event) {
+      var dropdown = document.getElementById("logout-dropdown");
+      var target = event.target;
+      var usuarioDropdown = document.getElementById("usuario-dropdown");
+ 
+      if (!usuarioDropdown.contains(target) && !dropdown.contains(target)) {
+          dropdown.style.display = "none";
+      }
+  });
 </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+  //Desplazamiento de la imagen hacia el inicio
+
+    $(document).ready(function(){
+        $("a[href='#']").on('click', function(event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function(){
+                    window.location.hash = hash;
+                });
+            }
+        });
+    });
+</script>
+
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>   

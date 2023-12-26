@@ -22,7 +22,6 @@ class Post(models.Model):
       imagen= models.ImageField(null=True, blank=True, upload_to= 'media', default='static/post_default.png')
       publicado= models.DateTimeField(default= timezone.now)
       autor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
-
       class Meta:
             ordering =('-publicado',)
 
@@ -39,5 +38,5 @@ class Comentario(models.Model):
       texto = models.TextField()
       fecha = models.DateTimeField( auto_now_add= True)
 
-def __str__(self):
-      return self.texto      
+      def __str__(self):
+         return self.texto      

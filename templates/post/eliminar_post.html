@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<center>
+<div class="container-fluid" style="margin: 300px;">
+    <h1>Eliminar post</h1>
+    <p> ¿Estás seguro de que quieres eliminar el post "{{ object.usuarios }}"?</p>
+    <a id="boton_post"
+    href="{% url 'apps.posts:posts' %}?next={% url 'apps.posts:post_delete' pk=object.id %} ">
+    eliminar</a>
+    <form method="POST">
+        {% csrf_token %}
+        <input type ="submit" value= "Sí, eliminar">
+        <a style="color: black;" href="{% url 'apps.posts:posts' %}">No, cancelar</a>
+    </form>
+</div>
+</center>
+{% endblock %} 
+
