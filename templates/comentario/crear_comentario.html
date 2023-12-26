@@ -27,7 +27,7 @@
     {% csrf_token %}
     {% if superuser is autenthicated %}
     <h2>Deja tu comentario</h2>
-       <from method="POST">
+       <form method="POST">
           {% csrf_token %}
           {{ form.as_p }}
           <input type="submit" value="Comentar">

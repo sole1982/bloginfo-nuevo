@@ -10,6 +10,7 @@ from django.views.generic.edit import CreateView
 # Create your views here.
 
 
+
 class PostListView(ListView):
     model = Post
     template_name = "post/posts.html"
@@ -41,6 +42,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
+      
         context['comentarios'] = Comentario.objects.filter(id=self.kwargs['id'])
         return context
     
@@ -61,13 +63,14 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = 'comentario/agregarComentario.html' 
-    success_url= 'comentario/comentarios'
-
+    
     def form_valid(self, form):
         form.instance.usuario = self.request.user
         form.instance.posts_id = self.kwargs['posts_id'] 
         return super().form_valid(form)
-    
+    def get_success_url(self):
+        # Utiliza reverse para obtener la URL inversa
+        return reverse('apps.posts:post_individual', args=[self.kwargs['id']])
     
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
