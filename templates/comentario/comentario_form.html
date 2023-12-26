@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-<center>
-    {% if user.is_superuser or comentario.usuario == user %}
-<div class="container-fluid" style="margin: 300px;">
-   <h1>Editar comentario</h1>
-   <form method="POST" style="margin-bottom: 10px; margin-top: 100px">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="sumbit" value="Guardar cambios">
-   </form>
-</div>
-{% else %}
-    <div class="container-fluid" style="margin: 300px;">
-       <h1>Solo usuarios con permiso puede acceder a esta página</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        {% if user.is_superuser or comentario.usuario == user %}
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Editar comentario</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="col-md-6 text-center">
+                <h1>Solo usuarios con permisos pueden acceder a esta página</h1>
+            </div>
+        {% endif %}
     </div>
-{% endif %}
-</center>
+</div>
 {% endblock %}

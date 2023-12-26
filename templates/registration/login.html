@@ -20,7 +20,7 @@
         <div class="container">
             {{ form|crispy }}
             <br>
-            <a style="color: black;" href="{% url 'apps.usuario:registrar' %}">¿Todavía no está registrado? Registrate.</a>
+            <p>¿Todavía no está registrado? <a style="color: blue;" href="{% url 'apps.usuario:registrar' %}">Regístrate.</a></p>
             <br><br>
             <button type="submit" class="btn btn-success btn-lg px-3">Iniciar sesión</button>
         </div>
