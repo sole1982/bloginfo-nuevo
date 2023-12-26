@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index, pagina_404
+from .views import *
 from django.conf import settings
 from django.conf.urls.static import static 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -15,6 +15,9 @@ urlpatterns = [
     path('', include('apps.contacto.urls')),
     path('', include('apps.usuario.urls')),
     path('', include('django.contrib.auth.urls')), 
+ path('productos/', include('productos.urls', namespace='productos'))
+
+
     
 
 ]  +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
