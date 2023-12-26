@@ -73,7 +73,7 @@ class UsuarioDeleteView(LoginRequiredMixin,DeleteView):
 
     def post(self,request,*args,**kwargs):
         eliminar_comentarios = request.POST.get('eliminar_comentarios',False)
-        eliminar_posts = request.POST.get('eliminar_posts',False)
+        eliminar_posts = request.POST.get('eliminar_post',False)
         self.object = self.get_object()
         if eliminar_comentarios:
             Comentario.objects.filter(usuario=self.object).delete()
