@@ -41,17 +41,17 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
-        #context['comentarios'] = Comentario.objects.filter(post_id= self.kwargs['id'])
+        context['comentarios'] = Comentario.objects.filter(id= self.kwargs['id'])
         return context
     
-    def posts(self, request, *args, **kwargs):
-        form = ComentarioForm(request.Post)
+    def post(self, request, *args, **kwargs):
+        form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.usuario = request.user 
             comentario.posts_id = self.kwargs['id'] 
             comentario.save()
-            return redirect('apps.posts:post_individual' , self.kwargs['id'] ) 
+            return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
         else:
             context = self.get_context_data(**kwargs)
             context['form'] = form
@@ -61,7 +61,7 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = 'comentario/agregarComentario.html' 
-    success_url= 'comentario/comentarios'
+    success_url= 'comentario/comentarios/'
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user
@@ -112,10 +112,12 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
     model= Post
     template_name = 'post/eliminar_post.html'
     success_url = reverse_lazy('apps.posts:posts')
+    
 class ComentarioUpdateView(LoginRequiredMixin,UpdateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = 'comentario/comentario_form.html'
+    
     def get_success_url(self):
         next_url = self.request.GET.get('next')
         if next_url:
@@ -125,10 +127,11 @@ class ComentarioUpdateView(LoginRequiredMixin,UpdateView):
 
 class ComentarioDeleteView(LoginRequiredMixin,DeleteView):
     model = Comentario
-    template_name = 'comentario/confirm_delete.html'
+    form_class = ComentarioForm
+    template_name = 'comentario/comentario_confirm_delete.html'
 
     def get_success_url(self):
-        return reverse('apps.posts:post_individual',args = [self.object.posts.id])
+        return reverse('apps.posts:post_individual', args = [self.object.posts.id])
     
 class PostsPorCategoria(ListView):
     model = Post
