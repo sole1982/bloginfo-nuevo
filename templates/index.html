@@ -10,7 +10,7 @@
 
   <h5>Bienvenido a <b>Vida Verde</b>, un rincón digital donde la pasión por el medio ambiente se entrelaza con la inspiración diaria.<br><br>Explora con nosotros las maravillas de nuestro planeta, descubre prácticas sostenibles que marcan la diferencia y sumérgete en historias cautivadoras que reflejan nuestro compromiso con la preservación del entorno.<br><br><a href="{% url 'apps.usuario:registrar' %}">Únete</a> a nuestra comunidad comprometida con un futuro más verde y siente la conexión única que compartimos con la naturaleza. <br><br>
    ¡Juntos, crearemos un impacto positivo que resonará más allá de las pantallas!</h1>
-   <img src="{% static 'img/portada.png' %}" alt="imagen_de_portada" style="width: 450px; margin-top: 1px; padding: 0;"> 
+   <img src="{% static 'img/portada.png' %}" alt="imagen_de_portada" style="width: 450px; margin-top: 1px; padding: 0; margin-bottom: 55px;"> 
 </div>
 </div>
 </div>
@@ -29,36 +29,55 @@
     <path d="M36.6225 122.664C36.6225 122.664 -12.8088 158.86 -7.94941 196.09C-3.09005 233.32 77.0423 234.89 51.5102 244.061C25.9782 253.232 -14.8843 218.241 -14.8843 218.241C-14.8843 218.241 -29.4865 228.802 -18.2634 280.949C-7.01919 333.085 87.0102 309.598 87.0102 309.598C175.76 444.273 222.611 327.1 222.667 312.678C222.723 298.257 149.056 296.271 154.378 288.328C159.678 280.397 200.653 300.769 225.789 296.108C250.924 291.447 276.981 221.6 271.044 202.625C265.108 183.651 202.912 235.003 203.285 214.04C203.658 193.077 285.727 210.561 269.279 138.629C252.83 66.697 257.336 75.0932 225.901 127.317C194.486 179.528 152.933 157.819 179.915 142.749C279.749 86.9744 210.854 0.363109 210.854 0.363109C91.6899 43.9797 143.077 136.376 127.332 135.037C111.62 133.706 140.577 32.2187 121.073 50.4328C101.569 68.647 71.6101 47.4321 51.6299 86.4733C31.6615 125.536 96.2608 187.915 70.3863 197.913C44.5119 207.911 36.6014 122.676 36.6014 122.676L36.6225 122.664ZM182.352 237.892C202.356 233.209 218.645 240.002 216.137 250.863C213.629 261.723 173.097 260.2 173.097 260.2C159.212 254.643 162.337 242.554 182.352 237.892ZM103.262 159.915C119.828 177.402 121.298 186.409 119.948 194.327C119.948 194.327 97.5515 186.256 93.3527 170.355C89.1421 154.433 86.6747 142.44 103.262 159.915ZM51.8056 267.17C64.2082 272.003 78.4947 273.656 70.9427 283.061C70.9427 283.061 49.4407 291.566 40.8083 280.43C32.1641 269.272 39.403 262.338 51.8056 267.17Z" fill="#B7D331"/>
   </svg>
 
-  <main class="d-flex flex-column flex-sm-column flex-lg-row" style="justify-content: center; display: flex; padding: 20px; margin-top: 80px;">
-    <div class="card mx-5" style="width: 20rem;">
-      <img src="{% static 'img/viaje.png' %}" class="card-img-top" alt="..." height="30%" width="20%">
-      <div class="card-body">
-        <h5 class="card-title">Energia </h5>
-        <p class="card-text">Explora la energía del futuro en nuestro blog ambiental: descubre fuentes renovables y soluciones innovadoras para un mundo más sostenible. ¡Inspírate para ser parte del cambio hacia un mañana impulsado por energía limpia!</p>
-        <a href="#" class="btn btn-primary">Te contamos mas </a>
+  <main class="d-flex justify-content-center" style="padding: 20px; margin-top: 150px;">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/ambientevidrio.jpg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Energía</h5>
+            <p class="card-text">Explora la energía del futuro en nuestro blog ambiental: descubre fuentes renovables y soluciones innovadoras para un mundo más sostenible. ¡Inspírate para ser parte del cambio hacia un mañana impulsado por energía limpia!</p>
+            <a href="{% url 'apps.posts:posts' %}"class="btn btn-primary">Te contamos más</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card mx-5" style="width: 20rem;">
-      <img src="{% static 'img/energia2.png' %}" class="card-img-top" alt="..." height="30%">
-      <div class="card-body">
-        <h5 class="card-title">Ideas</h5>
-        <p class="card-text">Buscamos ideas frescas y creativas para cuidar nuestro hogar, el planeta. Únete a nosotros en la búsqueda de soluciones innovadoras y acciones simples que marquen la diferencia en la preservación del ambiente. ¡Tu creatividad es la clave para un futuro más verde!.</p>
-        <a href="#" class="btn btn-primary">Contanos</a>
+  
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/cuidadoambiente.jpg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Ideas</h5>
+            <p class="card-text">Buscamos ideas frescas y creativas para cuidar nuestro hogar, el planeta. Únete a nosotros en la búsqueda de soluciones innovadoras y acciones simples que marquen la diferencia en la preservación del ambiente. ¡Tu creatividad es la clave para un futuro más verde!.</p>
+            <a href="{% url 'apps.posts:posts' %}" class="btn btn-primary">Contanos</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card mx-5" style="width: 20rem;">
-      <img src="{% static 'img/cambio.jpg' %}" class="card-img-top" alt="..." height="30%">
-      <div class="card-body">
-        <h5 class="card-title">Planeta</h5>
-        <p class="card-text">Viaja a través del tiempo en nuestro blog ambiental y descubre los cambios fascinantes que modelan nuestro planeta. Desde transformaciones climáticas hasta impactos humanos, exploraremos juntos la historia dinámica de la Tierra y cómo podemos contribuir a un equilibrio más sostenible. ¡Aventúrate con nosotros en el viaje del planeta y su constante evolución!.</p>
-        <a href="#" class="btn btn-primary">Te contamos mas</a>
+  
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{% static 'img/niños.jpg' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Planeta</h5>
+            <p class="card-text">Viaja a través del tiempo en nuestro blog ambiental y descubre los cambios fascinantes que modelan nuestro planeta. Desde transformaciones climáticas hasta impactos humanos, exploraremos juntos la historia dinámica de la Tierra y cómo podemos contribuir a un equilibrio más sostenible. ¡Aventúrate con nosotros en el viaje del planeta y su constante evolución!.</p>
+            <a href="{% url 'apps.posts:posts' %}"class="btn btn-primary">Te contamos más</a>
+          </div>
+        </div>
       </div>
     </div>
   </main>
+  
 
-<body>
+  <body>
 
-<div style="background-color: blueviolet; height: 750px;"><h1><center>--------- acá irían los post ---------</center></h1></div>
+
+    <div><h1><center>{% include 'productos/lista_productos.html' %}
+     
+    
+
+    </center></h1>
+    
+  
+  </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
