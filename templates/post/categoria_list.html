@@ -1,19 +1,36 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-<center>
-<div class="container-fluid" style="margin: 200px;">
-    <h1>Categorías</h1>
-    <br> 
-    <ul>
-        {% for categoria in categorias %}
-          <li>{{ categoria.nombre }}
-          (<a style="color: black;"
-          href="{% url 'apps.posts:categoria_delete' pk=categoria.pk %}">Eliminar</a>) </li>
-        {% empty %}
-          <li>No hay categoría</li>
-        {% endfor %}
-    </ul>
+
+<div class="container-fluid my-5">
+  <div class="container-fluid d-flex justify-content-end">
+      <a id="boton_post" href="{% url 'apps.posts:crear_categoria' %}" class="btn btn-success">
+          
+          Crear nueva Categoría
+      </a>
+  </div>
 </div>
-</center>
+
+<div class="container-fluid my-5">
+  <h1>Categorías</h1>
+  <br>
+  {% if categorias %}
+      <ul class="list-group">
+          {% for categoria in categorias %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ categoria.nombre }}
+                  <span>
+                      <a class="text-danger" href="{% url 'apps.posts:categoria_delete' pk=categoria.pk %}">Eliminar</a>
+                  </span>
+              </li>
+          {% endfor %}
+      </ul>
+  {% else %}
+      <p>No hay categoría</p>
+  {% endif %}
+</div>
+
+
+
+
 {% endblock %} 

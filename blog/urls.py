@@ -18,6 +18,7 @@ urlpatterns = [
  path('productos/', include('productos.urls', namespace='productos'))
 
 
+
     
 
 ]  +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
