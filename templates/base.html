@@ -39,7 +39,10 @@
   <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-        <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm1-11h-2v3h-3v2h3v3h2v-3h3v-2h-3z"/>
+        </svg>
+        
         Light
         <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
       </button>
@@ -70,54 +73,53 @@
   </li>
 <li><a class="nav-item ms-3" href="/">Inicio</a></li>
 <li><a class="nav-item" href="{% url 'apps.posts:posts' %}">Post</a></li> 
- <!-- En alguna plantilla -->
-<a href="{% url 'productos:lista_productos' %}">Ir a la lista de productos</a>
+ 
+
 
 
 <li class="nav-item dropdown"><a class="nav-link me-3"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
  <ul class="dropdown-menu" style="background-color: rgba(221, 230, 222, 0.102);">
           {% for categoria in categorias %}
-            <li>{{ categoria.nombre }}</li>
-    <li><a class="dropdown-item" href="/categoria/"    > {{ categoria.nombre }}</a> </li>
+          
+    <li><a class="dropdown-item" href="{% url 'apps.posts:posts_por_categoria' categoria.id %}"     > {{ categoria.nombre }}</a> </li>
      {% empty %}
     <li>No hay categoría</li>
             {% endfor %}        
     <li>
- {% for usuario in usuarios %}
-      <li>  {{ usuario.username }}</li>
-      (<a style="color: black;"
-      href="{% url 'apps.usuario:usuario_delete' pk=usuario.pk %}">Eliminar</a>) </li>
-    {% empty %}
-      <li>No hay usuarios</li>
- {% endfor %}  
+
       <hr class="dropdown-divider">
     </li>
-    <li><a class="dropdown-item" href="#">Todas</a></li>
+    <li><a class="dropdown-item" href="{% url 'apps.posts:posts' %}">Todas</a></li>
   </ul>
 </li>
 
 <li><a class="nav-item me-4" href="{% url 'apps.contacto:contacto' %}">Contacto</a></li> 
 
-<form class="d-flex" role="search">
+<!--<form class="d-flex" role="search">
   <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322); font-size: 12px;">
   <button class="btn btn-outline-success" type="submit" style="font-size: 12px; padding: 6px 12px;">Buscar</button>
-</form>
+</form>-->
 
 
 {% if user.is_authenticated %}
     <li id="logout-option" class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="usuario-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleLogoutOption()">
-          <img src="{{ user.imagen.url }}" alt="imagen_usuario" id="usuario-imagen" class="rounded-circle" style="max-width: 50px; max-height: 50px; cursor: pointer; margin-right: 10px;">
+        {% if user.imagen %}
+        <img src="{{ user.imagen.url }}" alt="imagen_usuario" id="usuario-imagen" class="rounded-circle" style="max-width: 50px; max-height: 50px; cursor: pointer; margin-right: 10px;">
+           {% else %}
+              <img src="{% static 'img/user-default.png' %}" alt="imagen_por_defecto" id="usuario-imagen" class="rounded-circle" style="max-width: 50px; max-height: 50px; cursor: pointer; margin-right: 10px;">
+        {% endif %}
           {{ user.username }}
       </a>
       <div id="logout-dropdown" class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); background-color: #fff;">
     
           {% if user.is_superuser or request.user|has_group:"colaborador" %}
-              <a class="dropdown-item" href="{% url 'apps.usuario:usuario_list' %}" style="color: green;">Lista de     usuarios</a>
+              <a class="dropdown-item" href="{% url 'apps.usuario:usuario_list' %}" style="color: green;">Lista de usuarios</a>
           {% endif %}
           <a class="dropdown-item" href="{% url 'apps.posts:categoria_list' %}"  style="color: green;">Lista de categorías</a>
           <a class="dropdown-item" href="{% url 'apps.posts:posts' %}"  style="color: green;">Lista de posts</a>
-    
+          
+     
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'apps.usuario:logout' %}" style="color: blue;">Cerrar Sesión</a>
       </div>
@@ -177,16 +179,11 @@
             <a class="nav-link "   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
               <span style="margin-left: 15px; margin-right: 100px;font-size: x-large; font-style: italic; font-weight: bold;">Categorias</span></a>
            <ul class="dropdown-menu" style="background-color: rgba(244, 242, 246, 0.356); ">
-            
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Información General </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Biodiversidad </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Reciclaje </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Cambio Climático </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Vida Verde </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#">Energías Renovables  </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Huerta Familiar </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Permacultura </a> </li>
-              <li><a class="dropdown-item" style=" font-style: italic;" href="#"> Educación Ambiental </a> </li>          
+            {% for categoria in categorias %}
+              <li><a class="dropdown-item" style=" font-style: italic;" href="{% url 'apps.posts:posts_por_categoria' categoria.id %}"  >{{ categoria.nombre }}  </a> </li>
+              {% empty %}
+               <li>No hay categoría</li>
+            {% endfor %}    
               <li>
                 <hr class="dropdown-divider">
               </li>
@@ -199,10 +196,10 @@
         </ul>
 
       <br>
-      <form class="d-flex mt-3" role="search">
+      <!--<form class="d-flex mt-3" role="search">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322);">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
-    </form>
+    </form>-->
         <svg xmlns="http://www.w3.org/2000/svg" width="188" height="305" viewBox="0 0 188 305" fill="none" style="position: absolute; bottom: 0; right: 0; z-index: -1;   "      >
           <path d="M191.9 99.9334C191.9 99.9334 232.116 129.382 228.163 159.671C224.209 189.961 159.015 191.238 179.787 198.699C200.56 206.16 233.805 177.693 233.805 177.693C233.805 177.693 245.685 186.285 236.554 228.711C227.406 271.128 150.905 252.019 150.905 252.019C78.6999 361.589 40.583 266.258 40.5375 254.525C40.4921 242.792 100.426 241.176 96.0962 234.715C91.7838 228.262 58.4477 244.836 37.9976 241.044C17.5475 237.252 -3.65166 180.425 1.17832 164.988C6.00829 149.551 56.6098 191.33 56.3062 174.275C56.0026 157.22 -10.7675 171.445 2.6148 112.922C15.9971 54.3993 12.3311 61.2303 37.9065 103.718C63.4647 146.197 97.2717 128.534 75.3197 116.274C-5.90397 70.8967 50.1481 0.43127 50.1481 0.43127C147.098 35.917 105.29 111.089 118.1 109.999C130.883 108.917 107.325 26.3484 123.192 41.1671C139.06 55.9858 163.434 38.7258 179.69 70.489C195.936 102.269 143.379 153.02 164.43 161.154C185.481 169.288 191.917 99.943 191.917 99.943L191.9 99.9334ZM73.3365 193.681C57.0618 189.871 43.8095 195.398 45.85 204.233C47.8906 213.069 80.8665 211.83 80.8665 211.83C92.1632 207.309 89.6208 197.474 73.3365 193.681ZM137.683 130.24C124.205 144.467 123.009 151.795 124.108 158.237C124.108 158.237 142.329 151.67 145.745 138.734C149.171 125.78 151.178 116.022 137.683 130.24ZM179.547 217.501C169.457 221.432 157.833 222.777 163.977 230.429C163.977 230.429 181.471 237.349 188.494 228.288C195.527 219.211 189.638 213.569 179.547 217.501Z" fill="#B7D331"/>
         </svg>
@@ -230,96 +227,6 @@
 
 
 <!--==============================footer=================================-->
-<footer class="mt-5 pt-3 pb-3 bg-dark text-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 mb-4">
-        <div class="dropdown">
-          <button class="btn btn-success dropdown-toggle" type="button" id="categoriasDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Explorar categorías
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="categoriasDropdown">
-            <li><a class="dropdown-item" href="#">Información general</a></li>
-            <li><a class="dropdown-item" href="#">Biodiversidad</a></li>
-            <li><a href="#" class="text-light">Reciclaje</a></li>
-            <li><a href="#" class="text-light">Cambio rlimático</a></li>
-            <li><a href="#" class="text-light">Vida Verde</a></li>
-            <li><a href="#" class="text-light">Energías renovables</a></li>
-            <li><a href="#" class="text-light">Huerta familiar</a></li>
-            <li><a href="#" class="text-light">Permacultura</a></li>
-            <li><a href="#" class="text-light">Educación Ambiental</a></li>
-          </ul>
-        </div>
-        <a href="#" class="btn btn-success mt-3">Subir</a>
-
-        <a href="/" class="d-block mx-auto mt-6">
-          <img src="{% static 'img/logoVerde.png' %}" alt="logo-imagen" class="img-fluid" style="width: 200px; height: 50px;">
-        </a>
-
-      </div>
-
-      <div class="col-md-3 mb-4">
-        <h3 class="text-success">Últimas Noticias</h3>
-        <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming quod mazim placerat facer possim assum orem ipsum dolor sit amet consectetuer.</p>
-        <a href="#" class="btn btn-success mt-3">Más</a>
-      </div>
-      <div class="col-md-3 mb-4">
-        <h3 class="text-success">Contacto</h3>
-        <ul class="list-unstyled" style="margin-bottom: 20px">
-          <li>Av. SiempreViva n° 742</li>
-          <li>comision2.grupo4@gmail.com</li>
-          <li>Teléfono: 03 03 456</li>
-        </ul>
-        <a href="{% url 'apps.contacto:contacto' %}" class="btn btn-success mt-3">Contáctanos</a>
-      </div>
-
-      <div class="col-md-3 mb-4">
-        <h4 class="text-success">Redes Sociales</h4>
-        <ul class="list-unstyled">
-          <li class="mb-2">
-              <a href="https://www.facebook.com" target="_blank" class="text-light d-flex align-items-center">
-                  <img src="{% static 'img/facebook.png' %}" alt="Facebook" width="30" class="me-1">
-                  Facebook
-              </a>
-          </li>
-      
-          <li class="mb-2">
-              <a href="https://twitter.com" target="_blank" class="text-light d-flex align-items-center">
-                  <img src="{% static 'img/ex.png' %}" alt="X" width="30" class="me-1">
-                  X
-              </a>
-          </li>
-      
-          <li class="mb-2">
-              <a href="https://www.instagram.com" target="_blank" class="text-light d-flex align-items-center">
-                  <img src="{% static 'img/instagram.png' %}" alt="Instagram" width="30" class="me-1">
-                  Instagram
-              </a>
-          </li>
-      
-          <li>
-              <a href="https://www.youtube.com" target="_blank" class="text-light d-flex align-items-center">
-                  <img src="{% static 'img/youtube.png' %}" alt="YouTube" width="30" class="me-1">
-                  YouTube
-              </a>
-          </li>
-        </ul>
-      
-
-      
-      </div>
-    </div>
-
-    <div class="row mt-2 mb-2">
-      <div class="col-md-12">
-        <div class="footer-bg text-center p-3">
-          <p class="text-light" id="website">VidaVerde.com &copy; 2023
-            <span>- Website creada por <a target="_blank" href="#" class="text-light">Comisión 2 - Grupo 4</a></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
 
 
 

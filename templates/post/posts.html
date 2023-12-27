@@ -35,12 +35,7 @@
 
 
 
-
-
 <main class="container mx-auto">
-
-
-
 
   <div class="row m-4" >
   
@@ -75,25 +70,26 @@
 {% endfor   %}
 
 
-{% for i in posts %} 
+
 <div class="row g-5">
   <div class="col-md-8">
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
       Noticias
     </h3>
-
+    {% for i in posts %} 
 
 
     <article class="blog-post">
-      <h2 class="display-5 link-body-emphasis mb-1">{{ i.categoria }}</h2>
-      <p class="blog-post-meta">{{ i.fecha}} <a href="#">{{ i.autor }}</a></p>
+      <h6>{{ i.categoria }} </h6>
+      <h2 class="display-5 link-body-emphasis mb-1">{{ i.titulo }}</h2>
+      <p class="blog-post-meta">{{ i.fecha}} <a href="#">Escrito por {{ i.autor }}</a></p>
 
-      <p>{{ i.titulo }}</p>
+      <p>{{ i.subtitulo }}</p>
       <blockquote>
         <p>{{ i.texto }}</p>
       </blockquote>
       
-
+     <hr>
     </article>
 
 
@@ -142,20 +138,12 @@
           {% endfor   %}
          
         </ul>
-
-        
-      </div>
-     
-
-
-
-
-
-      <div class="p-4">
+       </div>
+      
+       <div class="p-4">
         <h4 class="fst-italic">Archivos</h4>
         <ol class="list-unstyled mb-0">
           <li><a href="{% url 'apps.posts:posts' %} ">Diciembre</a></li>
-         
         </ol>
       </div>
 
@@ -171,9 +159,9 @@
   </div>
 </div>
 
+  </div>
 </main>
-</main>
-</div>
+
 
 <div style="background-color: rgba(85, 183, 106, 0.172); position: sticky; bottom: 0; left: 0; right: 0; height: 155px; z-index: -1; ">
   
