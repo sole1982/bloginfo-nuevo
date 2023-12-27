@@ -1,6 +1,7 @@
 from .models import Usuario
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from apps.posts.models import Comentario, Post, Categoria
 from django.contrib.auth import authenticate, login
 from apps.posts.models import Comentario, Post, Categoria
 
@@ -26,19 +27,3 @@ class RegistroUsuarioForm(UserCreationForm):
             user = authenticate(request, username=username, password=password)
             if user:
                 login (request, user)
-
-
-class ComentarioPostForm(forms.ModelForm):
-    class Meta:
-        model = Comentario
-        fields = ['texto']
-
-class CrearPostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields ='__all__'
-
-class NuevaCategoriaForm(forms.ModelForm):
-    class Meta:
-        model= Categoria
-        fields = '__all__'  

@@ -59,10 +59,65 @@
       </div>
         {% endif %}
       </div>
-
-      {% include 'comentario/crear_comentario.html' %}
-</div>
-     
-
-
+    </div>
+  </div>
+  {% if user.is_authenticated %}
+    <ul class="list-unstyled ps-3 collapse" id="components-collapse">
+    
+      <li><form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+      <button type="submit"   value="Comentar">Comentar</button>
+    </form></li>
+  
+    </ul>
+  
+   
+  {% else %}
+    <h2>debes uniciar sesion</h2>
+    <a class="btn" href="#">iniciar sesion</a>
+    <input type="hidden" name="next" >
+  {% endif%}
+    
+  {% include 'comentario/crear_comentario.html' %}
+      <!--<div class="container-fluid" style="margin-bottom: 20px;">
+        <h4>Comentarios</h4>
+          {% for comentario in comentarios %}
+             <div>
+               <p>{{ comentario.usuario }} - {{ comentario.fecha }}</p>
+               <p>{{ comentario.texto }}</p>
+             </div>
+           {% empty %}
+          <p>No hay comentarios</p>
+          {% endfor %}
+      </div>
+    
+      
+    </article>
+   
+ 
+      </div>
+    </div>
+  </div>
+</div>-->
+  
 {% endblock %}
+
+
+
+
+
+
+
+
+    
+
+  
+
+
+
+
+
+    
+   
+    
