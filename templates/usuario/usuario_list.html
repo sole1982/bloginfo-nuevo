@@ -1,21 +1,28 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-<div class="container mt-3;">
+<div class="container mt-3">
     <h1 class="text-center">Usuarios</h1>
     <div class="container-fluid" style="margin-top: 100px;">
         <ul class="list-unstyled" style="padding: 0;">
             {% for usuario in usuarios %}
                 <li class="mb-3 d-flex align-items-center">
-                    <img src="{{ usuario.imagen.url }}" alt="imagen_usuario" class="rounded-circle" style="max-width: 30px; max-height: 30px; margin-right: 10px;">
-                    {{ usuario.username }}
-                    (<a class="text-dark" style="color: blue;" href="{% url 'apps.usuario:usuario_delete' pk=usuario.pk %}">Eliminar</a>)
+                    <div class="d-flex align-items-center">
+                        <img src="{{ usuario.imagen.url }}" alt="imagen_usuario" class="rounded-circle me-5" style="width: 100px; height: 100px;">
+                        <h2><span>{{ usuario.username }}</span></h2>
+                    </div>
+                    <a href="{% url 'apps.usuario:usuario_delete' pk=usuario.pk %}" class="btn btn-danger btn-sm ms-auto">Eliminar</a>
                 </li>
+                <hr>
             {% empty %}
                 <li>No hay usuarios</li>
             {% endfor %}
         </ul>
     </div>
 </div>
+
+
+
+
 {% endblock %}
 

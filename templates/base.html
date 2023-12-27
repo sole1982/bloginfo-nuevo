@@ -39,7 +39,10 @@
   <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-        <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm1-11h-2v3h-3v2h3v3h2v-3h3v-2h-3z"/>
+        </svg>
+        
         Light
         <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
       </button>
@@ -92,10 +95,10 @@
 
 <li><a class="nav-item me-4" href="{% url 'apps.contacto:contacto' %}">Contacto</a></li> 
 
-<form class="d-flex" role="search">
+<!--<form class="d-flex" role="search">
   <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322); font-size: 12px;">
   <button class="btn btn-outline-success" type="submit" style="font-size: 12px; padding: 6px 12px;">Buscar</button>
-</form>
+</form>-->
 
 
 {% if user.is_authenticated %}
@@ -115,7 +118,7 @@
           {% endif %}
           <a class="dropdown-item" href="{% url 'apps.posts:categoria_list' %}"  style="color: green;">Lista de categorías</a>
           <a class="dropdown-item" href="{% url 'apps.posts:posts' %}"  style="color: green;">Lista de posts</a>
-          <a class="dropdown-item" href="{% url 'productos:lista_productos' %}"  style="color: green;">Ir a la lista de productos</a>
+          
      
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'apps.usuario:logout' %}" style="color: blue;">Cerrar Sesión</a>
@@ -193,10 +196,10 @@
         </ul>
 
       <br>
-      <form class="d-flex mt-3" role="search">
+      <!--<form class="d-flex mt-3" role="search">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322);">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
-    </form>
+    </form>-->
         <svg xmlns="http://www.w3.org/2000/svg" width="188" height="305" viewBox="0 0 188 305" fill="none" style="position: absolute; bottom: 0; right: 0; z-index: -1;   "      >
           <path d="M191.9 99.9334C191.9 99.9334 232.116 129.382 228.163 159.671C224.209 189.961 159.015 191.238 179.787 198.699C200.56 206.16 233.805 177.693 233.805 177.693C233.805 177.693 245.685 186.285 236.554 228.711C227.406 271.128 150.905 252.019 150.905 252.019C78.6999 361.589 40.583 266.258 40.5375 254.525C40.4921 242.792 100.426 241.176 96.0962 234.715C91.7838 228.262 58.4477 244.836 37.9976 241.044C17.5475 237.252 -3.65166 180.425 1.17832 164.988C6.00829 149.551 56.6098 191.33 56.3062 174.275C56.0026 157.22 -10.7675 171.445 2.6148 112.922C15.9971 54.3993 12.3311 61.2303 37.9065 103.718C63.4647 146.197 97.2717 128.534 75.3197 116.274C-5.90397 70.8967 50.1481 0.43127 50.1481 0.43127C147.098 35.917 105.29 111.089 118.1 109.999C130.883 108.917 107.325 26.3484 123.192 41.1671C139.06 55.9858 163.434 38.7258 179.69 70.489C195.936 102.269 143.379 153.02 164.43 161.154C185.481 169.288 191.917 99.943 191.917 99.943L191.9 99.9334ZM73.3365 193.681C57.0618 189.871 43.8095 195.398 45.85 204.233C47.8906 213.069 80.8665 211.83 80.8665 211.83C92.1632 207.309 89.6208 197.474 73.3365 193.681ZM137.683 130.24C124.205 144.467 123.009 151.795 124.108 158.237C124.108 158.237 142.329 151.67 145.745 138.734C149.171 125.78 151.178 116.022 137.683 130.24ZM179.547 217.501C169.457 221.432 157.833 222.777 163.977 230.429C163.977 230.429 181.471 237.349 188.494 228.288C195.527 219.211 189.638 213.569 179.547 217.501Z" fill="#B7D331"/>
         </svg>

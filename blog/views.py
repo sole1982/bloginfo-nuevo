@@ -11,7 +11,7 @@ def index(request):
     productos = Producto.objects.all() 
     categorias = Categoria.objects.all()
     posts = Post.objects.filter(activo=True).order_by('-publicado')  
-    context = {'productos': productos, 'categorias': categorias, 'posts': posts}
+    context = {'productos': productos, 'categorias': categorias, 'posts': posts, 'producto':productos}
     
     
     return render(request, 'index.html', context)
