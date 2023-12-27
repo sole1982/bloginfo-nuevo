@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <aside class="bd-aside sticky-xl-top text-body-secondary align-self-start mb-3 mb-xl-5 px-2 col-md-3">
+    <aside class="bd-aside sticky-xl-top text-body-secondary align-self-start mb-3 mb-xl-5 px-2 col-md-1">
       <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">Vida Verde</h2>
       <nav class="small" id="toc">
         <ul class="list-unstyled">
@@ -46,23 +46,75 @@
         <h2>{{ posts.titulo }}</h2>
         <h3>{{ posts.subtitulo }}</h3>
         <p>{{ posts.categoria }}</p>
-        <p>{{ posts.texto }}</p>
-        {% if posts.imagen %} 
-        <img src="{{ posts.imagen.url }}" alt="">
-        {% else %}
-        <p>No hay imágen disponible</p>
-        {% endif %}
+        
+       
+        <div class="clearfix">
+          {% if posts.imagen %}
+              <img src="{{ posts.imagen.url }}" alt="" class="img-fluid rounded float-md-start me-md-3 mb-3" style="max-width: 300px;">
+          {% else %}
+              <p class="mb-3">No hay imagen disponible</p>
+          {% endif %}
+
+          <p>{{ posts.texto }}</p>
+      </div>
+
+
         {% if user.is_superuser or request.user|has_group:"colaborador" %}
-        <div class="container-fluid mt-3">
-          <a class="btn btn-success me-2" href="{% url 'apps.posts:post_update' pk=posts.id %}">Modificar Post</a>
-          <a class="btn btn-success" href="{% url 'apps.posts:post_delete' pk=posts.pk %}">Eliminar Post</a>
-      </div>
+            <div class="container-fluid mt-3  d-flex justify-content-end  ">
+                <a class="btn btn-success me-2   " href="{% url 'apps.posts:post_update' pk=posts.id %}">Modificar Post</a>
+                <a class="btn btn-success " href="{% url 'apps.posts:post_delete' pk=posts.pk %}">Eliminar Post</a>
+            </div>
         {% endif %}
       </div>
+    </div>
+  </div>
+ 
+  <hr>
 
-      {% include 'comentario/crear_comentario.html' %}
+  <div class="container-fluid justify-content-center" style="margin-bottom: 20px; margin-left: 10%;">
+  {% include 'comentario/crear_comentario.html' %}
+    
 </div>
-     
-
-
+  
+  
+  <!--<div class="container-fluid" style="margin-bottom: 20px;">
+        <h4>Comentarios</h4>
+          {% for comentario in comentarios %}
+             <div>
+               <p>{{ comentario.usuario }} - {{ comentario.fecha }}</p>
+               <p>{{ comentario.texto }}</p>
+             </div>
+           {% empty %}
+          <p>No hay comentarios</p>
+          {% endfor %}
+      </div>
+    
+      
+    </article>
+   
+ 
+      </div>
+    </div>
+  </div>
+</div>-->
+  
 {% endblock %}
+
+
+
+
+
+
+
+
+    
+
+  
+
+
+
+
+
+    
+   
+    

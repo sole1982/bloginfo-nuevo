@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block contenido %}
 
 <center>
-<div class = "container-fluid" style="margin: 30px;">
-    <a id="boton_post"
-    href="{% url 'apps.posts:crear_categoria' %}?next={% url 'apps.posts:post_update' pk=object.id %} ">
-    Crear nueva categoria</a>
-    <br>
-    <h1>Modificar post</h1>
-    <form method="post" enctype="multipar/form-data">
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="color: #28a745;">Modificar Post</h1>
+    <form method="post" enctype="multipart/form-data" class="mx-auto" style="max-width: 600px;">
         {% csrf_token %}
-        {{ form.as_p}}
-        <input type="submit" value="Guardar cambios">
+        {{ form|crispy }}
+        <div class="text-center">
+            <input type="submit" class="btn btn-success" value="Guardar Cambios">
+        </div>
     </form>
 </div>
+
 </center>
 {% endblock %}

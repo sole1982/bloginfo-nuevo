@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect
 from .models import Post, Comentario, Categoria
-from django.views.generic import ListView, DetailView,  DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
@@ -54,7 +54,7 @@ class PostDetailView(DetailView):
             comentario.usuario = request.user 
             comentario.posts_id = self.kwargs['id'] 
             comentario.save()
-            return redirect('apps.posts:post_individual' , id=self.kwargs['id'] ) 
+            return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
         else:
             context = self.get_context_data(**kwargs)
             context['form'] = form
@@ -64,7 +64,8 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = 'comentario/agregarComentario.html' 
-    
+    success_url= 'comentario/comentarios'
+
     def form_valid(self, form):
         form.instance.usuario = self.request.user
         form.instance.posts_id = self.kwargs['posts_id'] 
@@ -98,12 +99,11 @@ class CategorialistView(ListView):
     context_object_name = 'categorias'
     
 
-class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
+class CategoriaDeleteView(LoginRequiredMixin,DeleteView):
     model= Categoria
     template_name = 'post/categoria_confirm_delete.html'
     success_url = reverse_lazy('apps.posts:categoria_list')
-
-
+    
 class PostUpdateView(LoginRequiredMixin,UpdateView):
     model = Post
     form_class = CrearPostForm
@@ -118,12 +118,12 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
     model= Post
     template_name = 'post/eliminar_post.html'
     success_url = reverse_lazy('apps.posts:posts')
-
+    
 class ComentarioUpdateView(LoginRequiredMixin,UpdateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = 'comentario/comentario_form.html'
-
+    
     def get_success_url(self):
         messages.success(self.request, '¡Comentario modificado con éxito!')
         next_url = self.request.GET.get('next')
@@ -134,7 +134,8 @@ class ComentarioUpdateView(LoginRequiredMixin,UpdateView):
 
 class ComentarioDeleteView(LoginRequiredMixin,DeleteView):
     model = Comentario
-    template_name = 'comentario/confirm_delete.html'
+    form_class = ComentarioForm
+    template_name = 'comentario/comentario_confirm_delete.html'
 
     def get_success_url(self):
         messages.success(self.request, '¡Comentario eliminado!')

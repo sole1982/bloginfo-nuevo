@@ -8,7 +8,7 @@
 <div class="container my-5 py-3 mx-5" style="position: relative;font-style: italic; height: 250; text-align: center; background-color: rgba(189, 235, 197, 0.453);">
  
 
-  <h5>Bienvenido a <b>Vida Verde</b>, un rincón digital donde la pasión por el medio ambiente se entrelaza con la inspiración diaria.<br><br>Explora con nosotros las maravillas de nuestro planeta, descubre prácticas sostenibles que marcan la diferencia y sumérgete en historias cautivadoras que reflejan nuestro compromiso con la preservación del entorno.<br><br><a href="{% url 'apps.usuario:registrar' %}">Únete</a> a nuestra comunidad comprometida con un futuro más verde y siente la conexión única que compartimos con la naturaleza. <br><br>
+  <h5>Bienvenido a <b>Vida Verde</b>, un rincón digital donde la pasión por el medio ambiente se entrelaza con la inspiración diaria.<br><br>Explora con nosotros las maravillas de nuestro planeta, descubre prácticas sostenibles que marcan la diferencia y sumérgete en historias cautivadoras que reflejan nuestro compromiso con la preservación del entorno.<br><br><strong><a href="{% url 'apps.usuario:registrar' %}">Únete</a></strong> a nuestra comunidad comprometida con un futuro más verde y siente la conexión única que compartimos con la naturaleza. <br><br>
    ¡Juntos, crearemos un impacto positivo que resonará más allá de las pantallas!</h1>
    <img src="{% static 'img/portada.png' %}" alt="imagen_de_portada" style="width: 450px; margin-top: 1px; padding: 0; margin-bottom: 55px;"> 
 </div>
@@ -37,7 +37,7 @@
           <div class="card-body">
             <h5 class="card-title">Energía</h5>
             <p class="card-text">Explora la energía del futuro en nuestro blog ambiental: descubre fuentes renovables y soluciones innovadoras para un mundo más sostenible. ¡Inspírate para ser parte del cambio hacia un mañana impulsado por energía limpia!</p>
-            <a href="{% url 'apps.posts:posts' %}"class="btn btn-primary">Te contamos más</a>
+            <a href="{% url 'apps.posts:posts' %}"class="btn btn-success">Te contamos más</a>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
           <div class="card-body">
             <h5 class="card-title">Ideas</h5>
             <p class="card-text">Buscamos ideas frescas y creativas para cuidar nuestro hogar, el planeta. Únete a nosotros en la búsqueda de soluciones innovadoras y acciones simples que marquen la diferencia en la preservación del ambiente. ¡Tu creatividad es la clave para un futuro más verde!.</p>
-            <a href="{% url 'apps.posts:posts' %}" class="btn btn-primary">Contanos</a>
+            <a href="{% url 'apps.contacto:contacto' %}" class="btn btn-success">Contanos</a>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
           <div class="card-body">
             <h5 class="card-title">Planeta</h5>
             <p class="card-text">Viaja a través del tiempo en nuestro blog ambiental y descubre los cambios fascinantes que modelan nuestro planeta. Desde transformaciones climáticas hasta impactos humanos, exploraremos juntos la historia dinámica de la Tierra y cómo podemos contribuir a un equilibrio más sostenible. ¡Aventúrate con nosotros en el viaje del planeta y su constante evolución!.</p>
-            <a href="{% url 'apps.posts:posts' %}"class="btn btn-primary">Te contamos más</a>
+            <a href="{% url 'apps.posts:posts' %}"class="btn btn-success">Te contamos más</a>
           </div>
         </div>
       </div>
@@ -79,7 +79,112 @@
   
   </div>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <footer class="mt-5 pt-3 pb-3 bg-dark text-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="categoriasDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Explorar categorías
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="categoriasDropdown">
+              {% for categoria in categorias %}
+              
+      <li><a class="dropdown-item" href="{% url 'apps.posts:posts_por_categoria' categoria.id %}"    > {{ categoria.nombre }}</a> </li>
+       {% empty %}
+      <li>No hay categoría</li>
+              {% endfor %}        
+      <li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-success mt-3">Subir</a>
+  
+          <a href="/" class="d-block mx-auto mt-6">
+            <img src="{% static 'img/logoVerde.png' %}" alt="logo-imagen" class="img-fluid" style="width: 200px; height: 50px;">
+          </a>
+  
+        </div>
+  
+        <div class="col-md-3 mb-4">
+          <h3 class="text-success">Últimas Noticias</h3>
+          {% if posts %}
+              {% with latest_post=posts.first %} 
+                  <p>{{ latest_post.subtitulo }} - {{ latest_post.titulo }}</p>
+                  <a href="{% url 'apps.posts:post_individual' latest_post.id %}" class="btn btn-success mt-3">Más</a>
+              {% endwith %}
+          {% else %}
+              <h1>No hay registros</h1>
+          {% endif %}  
+      </div>
+      
+  
+  
+  
+        <div class="col-md-3 mb-4">
+          <h3 class="text-success">Contacto</h3>
+          <ul class="list-unstyled" style="margin-bottom: 20px">
+            <li>Av. SiempreViva n° 742</li>
+            <li>comision2.grupo4@gmail.com</li>
+            <li>Teléfono: 03 03 456</li>
+          </ul>
+          <a href="{% url 'apps.contacto:contacto' %}" class="btn btn-success mt-3">Contáctanos</a>
+        </div>
+  
+        <div class="col-md-3 mb-4">
+          <h4 class="text-success">Redes Sociales</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+                <a href="https://www.facebook.com" target="_blank" class="text-light d-flex align-items-center">
+                    <img src="{% static 'img/facebook.png' %}" alt="Facebook" width="30" class="me-1">
+                    Facebook
+                </a>
+            </li>
+        
+            <li class="mb-2">
+                <a href="https://twitter.com" target="_blank" class="text-light d-flex align-items-center">
+                    <img src="{% static 'img/ex.png' %}" alt="X" width="30" class="me-1">
+                    X
+                </a>
+            </li>
+        
+            <li class="mb-2">
+                <a href="https://www.instagram.com" target="_blank" class="text-light d-flex align-items-center">
+                    <img src="{% static 'img/instagram.png' %}" alt="Instagram" width="30" class="me-1">
+                    Instagram
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.youtube.com" target="_blank" class="text-light d-flex align-items-center">
+                    <img src="{% static 'img/youtube.png' %}" alt="YouTube" width="30" class="me-1">
+                    YouTube
+                </a>
+            </li>
+          </ul>
+        
+  
+        
+        </div>
+      </div>
+  
+      <div class="row mt-2 mb-2">
+        <div class="col-md-12">
+          <div class="footer-bg text-center p-3">
+            <p class="text-light" id="website">VidaVerde.com &copy; 2023
+              <span>- Website creada por <a target="_blank" href="#" class="text-light">Comisión 2 - Grupo 4</a></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
   //Desplazamiento de la imagen hacia el inicio
