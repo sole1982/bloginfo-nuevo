@@ -1,7 +1,6 @@
 from typing import Any
 from django.shortcuts import render
 from .forms import ContactoForm
-from django.core.mail import send_mail
 from django.contrib import messages
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
