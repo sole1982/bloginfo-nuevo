@@ -33,7 +33,6 @@ class LoginUsuario(LoginView):
 
     def get_success_url(self):
         messages.success(self.request, 'Login exitoso.')
-
         return reverse('index')
     
 
@@ -42,7 +41,6 @@ class LogoutUsuario(LogoutView):
 
     def get_success_url(self):
         messages.success(self.request, 'Logout exitoso.')
-
         return reverse('index')
     
 class UsuarioListView( LoginRequiredMixin, ListView):
@@ -80,5 +78,5 @@ class UsuarioDeleteView(LoginRequiredMixin,DeleteView):
 
         if eliminar_posts:
             Post.objects.filter(autor=self.object).delete()
-        messages.success(request,f'Usuario {self.object.username} eliminado correctamente')
+        messages.success(request,f'Usuario {self.object.username} ¡Eliminado correctamente!')
         return self.delete(request,*args,**kwargs)

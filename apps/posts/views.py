@@ -7,6 +7,7 @@ from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView
+from django.contrib import messages
 # Create your views here.
 
 
@@ -42,13 +43,13 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
-      
         context['comentarios'] = Comentario.objects.filter(id=self.kwargs['id'])
         return context
     
     def post(self, request, *args, **kwargs):
         form = ComentarioForm(request.POST)
         if form.is_valid():
+            messages.success(self.request, 'Comentario creado con éxito.')
             comentario = form.save(commit=False)
             comentario.usuario = request.user 
             comentario.posts_id = self.kwargs['id'] 
@@ -69,7 +70,7 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
         form.instance.posts_id = self.kwargs['posts_id'] 
         return super().form_valid(form)
     def get_success_url(self):
-        # Utiliza reverse para obtener la URL inversa
+        messages.success(self.request, '¡Comentario creado!')
         return reverse('apps.posts:post_individual', args=[self.kwargs['id']])
     
 class PostCreateView(LoginRequiredMixin,CreateView):
@@ -84,6 +85,7 @@ class CategoriaCreateView(LoginRequiredMixin,CreateView):
     template_name = 'post/crear_categoria.html' 
     
     def get_success_url(self):
+        messages.success(self.request, '¡Categoría creada con éxito!')
         next_url = self.request.GET.get('next')
         if next_url:
             return next_url
@@ -123,6 +125,7 @@ class ComentarioUpdateView(LoginRequiredMixin,UpdateView):
     template_name = 'comentario/comentario_form.html'
 
     def get_success_url(self):
+        messages.success(self.request, '¡Comentario modificado con éxito!')
         next_url = self.request.GET.get('next')
         if next_url:
             return next_url
@@ -134,6 +137,7 @@ class ComentarioDeleteView(LoginRequiredMixin,DeleteView):
     template_name = 'comentario/confirm_delete.html'
 
     def get_success_url(self):
+        messages.success(self.request, '¡Comentario eliminado!')
         return reverse('apps.posts:post_individual',args = [self.object.posts.id])
     
 class PostsPorCategoria(ListView):
