@@ -17,6 +17,7 @@ SECRET_KEY = 'django-insecure-@a!su)yw7zidcgio!_nbgu=6-udv=7=d^j-kwi+@yek!pfkei*
 
 AUTH_USER_MODEL = 'usuario.Usuario'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Application definition
 

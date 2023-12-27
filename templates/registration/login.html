@@ -20,10 +20,17 @@
         <div class="container">
             {{ form|crispy }}
             <br>
-            <a style="color: black;" href="{% url 'apps.usuario:registrar' %}">¿Todavía no está registrado? Registrate.</a>
-            <br><br>
-            <button type="submit" class="btn btn-success btn-lg px-3">Iniciar sesión</button>
-        </div>
+            <div>
+               <p>¿Todavía no está registrado? <a href="{% url 'apps.usuario:registrar' %}?next={{ request.GET.next }}">Registrate.</a></P>
+            </div>  
+            <div>  
+               <p>¿Olvidaste tu contraseña? <a class="" href="{% url 'apps.usuario:password_reset' %}">Recuperar.</a></p>
+            </div> 
+                <div class="col text-center mt-2">
+                    <button type="submit" class="btn btn-success btn-lg px-3">Iniciar sesión</button>
+                </div>
+                
+            </div>
     </form>
 
     
