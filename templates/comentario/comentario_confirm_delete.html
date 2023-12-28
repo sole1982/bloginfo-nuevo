@@ -7,7 +7,7 @@
 {% if user.is_superuser or request.user|has_group:"colaborador" or comentario.usuario == user %}
     <div class="container-fluid" style="margin: 300px;">
       <h1>Eliminar Comentario</h1>
-      <p>¿Estás seguro de quye quieres eliminar el comentario?</p>
+      <p>¿Estás seguro de que quieres eliminar el comentario?</p>
       <form method="POST">
           {% csrf_token %}
           <input type="submit" value="Sí, eliminar">

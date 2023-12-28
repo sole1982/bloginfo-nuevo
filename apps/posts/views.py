@@ -54,8 +54,7 @@ class PostDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         form = ComentarioForm(request.POST)
         if form.is_valid():
-               if request.user.is_authenticated:  # Check if user is authenticated
-            # ... (existing code for creating the comment)
+               if request.user.is_authenticated: 
         
             
                   messages.success(self.request, 'Comentario creado con éxito.')
