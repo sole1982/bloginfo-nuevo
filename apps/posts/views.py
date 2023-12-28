@@ -1,6 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from .models import Post, Comentario, Categoria
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
@@ -54,17 +54,27 @@ class PostDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         form = ComentarioForm(request.POST)
         if form.is_valid():
-            messages.success(self.request, 'Comentario creado con éxito.')
-            comentario = form.save(commit=False)
-            comentario.usuario = request.user 
-            comentario.posts_id = self.kwargs['id'] 
-            comentario.save()
-           
-            return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
+               if request.user.is_authenticated:  # Check if user is authenticated
+            # ... (existing code for creating the comment)
+        
+            
+                  messages.success(self.request, 'Comentario creado con éxito.')
+                  comentario = form.save(commit=False)
+                  comentario.usuario = request.user 
+                  comentario.posts_id = self.kwargs['id'] 
+                  comentario.save()
+            
+                  return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
+               else:
+                 messages.error(self.request, 'Debes iniciar sesión para comentar.')
+                 context = {'form': form}
+                 return redirect('login')
+            
         else:
+            
             context = self.get_context_data(**kwargs)
             context['form'] = form
-            return self.render_to_response(context) 
+            return self.render(request, self.template_name, context) 
         
 class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario
