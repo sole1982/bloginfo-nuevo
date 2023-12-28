@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Miembros del Equipo</h2>
+
+    <div class="row justify-content-center">
+        {% for miembro in miembros %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <img src="{{ miembro.imagen }}" class="card-img-top custom-img-size img-fluid" alt="{{ miembro.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ miembro.nombre }}</h5>
+                        <p class="card-text">{{ miembro.descripcion }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
