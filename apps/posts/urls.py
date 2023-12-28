@@ -14,4 +14,5 @@ path('post/<int:pk>/eliminar/',PostDeleteView.as_view(), name = 'post_delete'),
 path('categoria/<int:pk>/posts/',PostsPorCategoria.as_view(), name = 'posts_por_categoria' ),
 path('comentario/<int:pk>/editar/',ComentarioUpdateView.as_view(), name = 'comentario_editar'),
 path('comentario/<int:pk>/eliminar/',ComentarioDeleteView.as_view(), name = 'comentario_eliminar'),
+path('comentario/comentarios/',ComentarioCreateView.as_view(), name = 'agregarComentario'),
 ]

@@ -7,7 +7,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 handler404 = pagina_404
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
@@ -15,12 +14,9 @@ urlpatterns = [
     path('', include('apps.contacto.urls')),
     path('', include('apps.usuario.urls')),
     path('', include('django.contrib.auth.urls')), 
- path('productos/', include('productos.urls', namespace='productos'))
-
-
-
+    path('acerca_de/', include('apps.acerca_de.urls')),
+    path('productos/', include('productos.urls', namespace='productos')),
     
-
-]  +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+] +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

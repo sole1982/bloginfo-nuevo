@@ -74,11 +74,11 @@
 <li><a class="nav-item ms-3" href="/">Inicio</a></li>
 <li><a class="nav-item" href="{% url 'apps.posts:posts' %}">Post</a></li> 
  
-
+<li><a class="nav-item" href="{% url 'apps.acerca_de:acerca_de' %}">Acerca de</a></li>
 
 
 <li class="nav-item dropdown"><a class="nav-link me-3"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
- <ul class="dropdown-menu" style="background-color: rgba(221, 230, 222, 0.102);">
+ <ul class="dropdown-menu" style="background-color: rgba(223, 232, 224, 0.909);">
           {% for categoria in categorias %}
           
     <li><a class="dropdown-item" href="{% url 'apps.posts:posts_por_categoria' categoria.id %}"     > {{ categoria.nombre }}</a> </li>
@@ -113,13 +113,13 @@
       </a>
       <div id="logout-dropdown" class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); background-color: #fff;">
     
-          {% if user.is_superuser or request.user|has_group:"colaborador" %}
+       {% if user.is_superuser or request.user|has_group:"colaborador" %}
               <a class="dropdown-item" href="{% url 'apps.usuario:usuario_list' %}" style="color: green;">Lista de usuarios</a>
-          {% endif %}
+         
           <a class="dropdown-item" href="{% url 'apps.posts:categoria_list' %}"  style="color: green;">Lista de categorías</a>
           <a class="dropdown-item" href="{% url 'apps.posts:posts' %}"  style="color: green;">Lista de posts</a>
           
-     
+          {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'apps.usuario:logout' %}" style="color: blue;">Cerrar Sesión</a>
       </div>
