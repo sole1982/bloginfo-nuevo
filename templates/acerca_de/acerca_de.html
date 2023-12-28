@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load colaborador_tags %}
+
+
+{% block contenido %}
+
+<h2>Miembros</h2>
+<ul>
+    {% for miembro in miembros %}
+        <li>
+            <strong>{{ miembro.nombre }}</strong> - <p>{{ miembro.descripcion }}</p>
+            <img src="{{ miembro.imagen }}" alt="{{ miembro.nombre }} - Imagen">
+        </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
