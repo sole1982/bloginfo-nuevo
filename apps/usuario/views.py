@@ -33,7 +33,6 @@ class LoginUsuario(LoginView):
 
     def get_success_url(self):
         messages.success(self.request, 'Login exitoso.')
-
         return reverse('index')
     
 
@@ -42,7 +41,6 @@ class LogoutUsuario(LogoutView):
 
     def get_success_url(self):
         messages.success(self.request, 'Logout exitoso.')
-
         return reverse('index')
     
 class UsuarioListView( LoginRequiredMixin, ListView):
@@ -62,7 +60,8 @@ class UsuarioListView( LoginRequiredMixin, ListView):
 class UsuarioDeleteView(LoginRequiredMixin,DeleteView):
     model= Usuario
     template_name = 'usuario/eliminar_usuario.html'
-    success_url = reverse_lazy('apps.posts:usuario_list')
+    success_url = reverse_lazy('apps.usuario:usuario_list')
+   
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         colaborador_group = Group.objects.get(name='colaborador')
@@ -78,5 +77,5 @@ class UsuarioDeleteView(LoginRequiredMixin,DeleteView):
 
         if eliminar_posts:
             Post.objects.filter(autor=self.object).delete()
-        messages.success(request,f'Usuario {self.object.username} eliminado correctamente')
+        messages.success(request,f'Usuario {self.object.username} ¡Eliminado correctamente!')
         return self.delete(request,*args,**kwargs)
