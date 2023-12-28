@@ -31,6 +31,7 @@ class PostListView(ListView):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         context['orden'] = self.request.GET.get('orden','reciente')
+        context['categorias'] = Categoria.objects.all()
         return context 
 
 class PostDetailView(DetailView):
@@ -44,6 +45,7 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
         context['comentarios'] = Comentario.objects.filter(id=self.kwargs['id'])
+        context['categorias'] = Categoria.objects.all()
         return context
     
     def post(self, request, *args, **kwargs):
@@ -63,13 +65,14 @@ class PostDetailView(DetailView):
 class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario
     form_class = ComentarioForm
-    template_name = 'comentario/agregarComentario.html' 
-    success_url= 'comentario/comentarios'
+    template_name = 'comentario/crear_comentario.html' 
+    success_url= 'comentario/comentarios/'
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user
         form.instance.posts_id = self.kwargs['posts_id'] 
         return super().form_valid(form)
+    
     def get_success_url(self):
         messages.success(self.request, '¡Comentario creado!')
         return reverse('apps.posts:post_individual', args=[self.kwargs['id']])

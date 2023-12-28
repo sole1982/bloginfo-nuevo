@@ -11,7 +11,16 @@ class Categoria(models.Model):
     
     def __str__(self):
             return(self.nombre)
-    
+
+class Comentario(models.Model):
+      posts= models.ForeignKey('posts.Post', on_delete=models.CASCADE, related_name='comentarios')
+      usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='comentarios' )
+      texto = models.TextField()
+      fecha = models.DateTimeField( auto_now_add= True)
+
+      def __str__(self):
+               return self.texto[:50]         
+
 class Post(models.Model):
       titulo = models.CharField(max_length=150, null= False)
       subtitulo = models.CharField(max_length=150, null=True, blank= True)
@@ -32,14 +41,7 @@ class Post(models.Model):
             self.imagen.delete(self.imagen.name)
             super().delete()
 
-class Comentario(models.Model):
-      posts: models.ForeignKey('posts.Post', on_delete=models.CASCADE, related_name='comentarios')
-      usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='comentarios' )
-      texto = models.TextField()
-      fecha = models.DateTimeField( auto_now_add= True)
 
-      def __str__(self):
-               return self.texto[:50]      
       
 
       
