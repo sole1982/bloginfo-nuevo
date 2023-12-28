@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView
 from django.contrib import messages
+
 # Create your views here.
 
 
@@ -44,8 +45,10 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
-        context['comentarios'] = Comentario.objects.filter(id=self.kwargs['id'])
+        context['comentarios'] = Comentario.objects.filter(posts_id=self.kwargs['id'])
         context['categorias'] = Categoria.objects.all()
+        for comentario in context['comentarios']:
+         comentario.usuario = comentario.usuario 
         return context
     
     def post(self, request, *args, **kwargs):
@@ -56,6 +59,7 @@ class PostDetailView(DetailView):
             comentario.usuario = request.user 
             comentario.posts_id = self.kwargs['id'] 
             comentario.save()
+           
             return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
         else:
             context = self.get_context_data(**kwargs)
