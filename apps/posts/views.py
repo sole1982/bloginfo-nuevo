@@ -1,6 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from .models import Post, Comentario, Categoria
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView
 from django.contrib import messages
+
 # Create your views here.
 
 
@@ -44,23 +45,35 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ComentarioForm()
-        context['comentarios'] = Comentario.objects.filter(id=self.kwargs['id'])
+        context['comentarios'] = Comentario.objects.filter(posts_id=self.kwargs['id'])
         context['categorias'] = Categoria.objects.all()
+        for comentario in context['comentarios']:
+         comentario.usuario = comentario.usuario 
         return context
     
     def post(self, request, *args, **kwargs):
         form = ComentarioForm(request.POST)
         if form.is_valid():
-            messages.success(self.request, 'Comentario creado con éxito.')
-            comentario = form.save(commit=False)
-            comentario.usuario = request.user 
-            comentario.posts_id = self.kwargs['id'] 
-            comentario.save()
-            return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
+               if request.user.is_authenticated: 
+        
+            
+                  messages.success(self.request, 'Comentario creado con éxito.')
+                  comentario = form.save(commit=False)
+                  comentario.usuario = request.user 
+                  comentario.posts_id = self.kwargs['id'] 
+                  comentario.save()
+            
+                  return redirect('apps.posts:post_individual' , id = self.kwargs['id'] ) 
+               else:
+                 messages.error(self.request, 'Debes iniciar sesión para comentar.')
+                 context = {'form': form}
+                 return redirect('login')
+            
         else:
+            
             context = self.get_context_data(**kwargs)
             context['form'] = form
-            return self.render_to_response(context) 
+            return self.render(request, self.template_name, context) 
         
 class ComentarioCreateView(LoginRequiredMixin, CreateView):
     model = Comentario

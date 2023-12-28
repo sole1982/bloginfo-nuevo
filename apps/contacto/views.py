@@ -41,7 +41,7 @@ class ContactoUsuario(CreateView):
          messages.success(self.request, 'Consulta enviada.')
 
          return super().form_valid(form)
-      except Exception as e:
+      except SMTPDataError as e:
             # Manejo de errores
               print(f"Error al enviar el correo: {e}")
               traceback.print_exc()  # Esto imprimirá la traza de la pila en la consola
