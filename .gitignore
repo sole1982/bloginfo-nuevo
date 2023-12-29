@@ -1,1 +1,8 @@
 *.pyc
+*.pot
+*.log
+__pycache__/
+db.sqlite3
+bloginfo-nuevo/blog/configuraciones
+.entorno
+.env
