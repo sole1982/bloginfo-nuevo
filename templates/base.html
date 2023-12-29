@@ -73,9 +73,6 @@
   </li>
 <li><a class="nav-item ms-3" href="/">Inicio</a></li>
 <li><a class="nav-item" href="{% url 'apps.posts:posts' %}">Post</a></li> 
- 
-<li><a class="nav-item" href="{% url 'apps.acerca_de:acerca_de' %}">Acerca de</a></li>
-
 
 <li class="nav-item dropdown"><a class="nav-link me-3"  role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
  <ul class="dropdown-menu" style="background-color: rgba(223, 232, 224, 0.909);">
@@ -94,6 +91,8 @@
 </li>
 
 <li><a class="nav-item me-4" href="{% url 'apps.contacto:contacto' %}">Contacto</a></li> 
+
+<li><a class="nav-item" href="{% url 'apps.acerca_de:acerca_de' %}">Acerca de</a></li>
 
 <!--<form class="d-flex" role="search">
   <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search" style="background-color: rgba(225, 235, 227, 0.322); font-size: 12px;">
@@ -170,8 +169,8 @@
             <span style="margin-left: 15px; margin-right: 10px;font-size: x-large; font-style: italic; font-weight: bold;">Contacto</span>
           </li> 
           <li class="nav-item"  style="  padding: 0;text-align: end;" >
-            <a class="nav-link" href="{% url 'apps.contacto:contacto' %} ">
-            <span style="margin-left: 15px; margin-right: 10px;font-size: x-large; font-style: italic; font-weight: bold;">Quienes Somos</span>
+            <a class="nav-link" href="{% url 'apps.acerca_de:acerca_de' %} ">
+            <span style="margin-left: 15px; margin-right: 10px;font-size: x-large; font-style: italic; font-weight: bold;">Acerca de</span>
           </li>
 
           <div style="justify-content: end; display: flex; margin-top: 50px; position: relative;">
