@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+<title>{% block title %}Vida Verde - Comentarios{% endblock %}</title>
+
 {% block contenido %}
 <center>
     {% if user.is_superuser or comentario.usuario == user %}

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load colaborador_tags %}
-{% block contenido %}
 
+<title>{% block title %}Vida Verde - Post{% endblock %}</title>
+
+{% block contenido %}
 
 {% if user.is_superuser or request.user|has_group:"colaborador" %}
 <div class="container mt-5">
