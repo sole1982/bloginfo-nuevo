@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
+
 {% load colaborador_tags %}
 
-
 {% block contenido %}
-<center>
-{% if user.is_superuser or request.user|has_group:"colaborador" or comentario.usuario == user %}
-    <div class="container-fluid" style="margin: 300px;">
-      <h1>Eliminar Comentario</h1>
-      <p>¿Estás seguro de que quieres eliminar el comentario?</p>
-      <form method="POST">
-          {% csrf_token %}
-          <input type="submit" value="Sí, eliminar">
-          <a style="color:black;" href="{% url 'apps.posts:posts' %}" >No, cancelar</a>
-      </form>
+
+{% if user.is_superuser or request.user|has_group:"Colaborador"  %}
+<form method="post" id="deleteForm">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    <h1>{{ mensaje }}</h1>
+    <div class='main-container' style="text-align: center; margin-top: 12%; margin-bottom: 12%;">
+        <h3><br><br><br><br>¿Está seguro que desea eliminar el comentario?</h3>
+        <input class="btn btn-danger" type="submit" value='Si, eliminar'>
+        <button class="btn btn-success" id="cancelButton">No, Cancelar</button>
     </div>
+</form>
 {% else %}
-    <div class="container-fluid" style="margin: 300px;">
-        <h1>Solo usuarios con permiso puede acceder a esta página</h1>
+    <div class="container text-center">
+        <br><br><br><br>
+        <h1>Solo usuarios con permisos pueden acceder a esta página</h1>
+        <br><br><br><br>
     </div>
 {% endif %}
-</center>
+
+<script>
+document.getElementById('cancelButton').addEventListener('click', function(event) {
+    event.preventDefault();
+    history.back();
+});
+</script>
+
 {% endblock %}
