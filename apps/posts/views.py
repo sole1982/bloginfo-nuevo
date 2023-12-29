@@ -149,14 +149,6 @@ class ComentarioUpdateView(LoginRequiredMixin,UpdateView):
             return reverse('apps.posts:post_individual',args=[self.object.posts.id])
 
 from django.urls import reverse_lazy
-<<<<<<< HEAD
-=======
-
-class ComentarioDeleteView(LoginRequiredMixin, DeleteView):
-    model = Comentario
-   
-    template_name = 'comentario/comentario_confirm_delete.html'
->>>>>>> main
 
 class ComentarioDeleteView(LoginRequiredMixin, DeleteView):
     model = Comentario
@@ -169,10 +161,7 @@ class ComentarioDeleteView(LoginRequiredMixin, DeleteView):
             return next_url
         else:
             return reverse_lazy('apps.posts:post_individual', args=[self.object.posts.id])
-<<<<<<< HEAD
 
-=======
->>>>>>> main
     
 class PostsPorCategoria(ListView):
     model = Post
