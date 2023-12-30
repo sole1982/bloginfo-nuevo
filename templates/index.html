@@ -4,9 +4,9 @@
 <title>{% block title %}Vida Verde - Inicio{% endblock %}</title>
 
 {%block contenido%}
-<div >
+
 <div class="fondo">
-<div class="container my-5 py-3 mx-5" style="position: relative;font-style: italic; height: 250; text-align: center; background-color: rgba(189, 235, 197, 0.453);">
+<div class="container my-5 py-3 mx-auto" style="position: relative;font-style: italic; height: 250; text-align: center; background-color: rgba(189, 235, 197, 0.453);">
  
 
   <h5>Bienvenido a <b>Vida Verde</b>, un rincón digital donde la pasión por el medio ambiente se entrelaza con la inspiración diaria.<br><br>Explora con nosotros las maravillas de nuestro planeta, descubre prácticas sostenibles que marcan la diferencia y sumérgete en historias cautivadoras que reflejan nuestro compromiso con la preservación del entorno.<br><br><strong><a href="{% url 'apps.usuario:registrar' %}">Únete</a></strong> a nuestra comunidad comprometida con un futuro más verde y siente la conexión única que compartimos con la naturaleza. <br><br>
@@ -14,7 +14,7 @@
    <img src="{% static 'img/portada.png' %}" alt="imagen_de_portada" style="width: 450px; margin-top: 1px; padding: 0; margin-bottom: 55px;"> 
 </div>
 </div>
-</div>
+
  
   <svg xmlns="http://www.w3.org/2000/svg" width="104" height="109" viewBox="0 0 104 109" fill="none" style=" position: fixed; z-index: 1;top: 590px;"    >
     <path d="M26.5388 43.4475C28.2589 45.4973 38.2629 57.7549 39.3637 66.9583C29.2221 99.4388 58.6423 109 58.6423 109C63.1833 95.6281 61.4633 82.834 55.8489 75.1851C52.2024 70.2188 47.0284 66.4631 43.8084 64.4133C42.5149 58.4427 38.7307 51.9906 35.4282 47.2169C37.0106 47.7947 38.5931 48.3588 40.2444 48.8678C50.8125 52.0732 58.147 55.2511 63.2934 58.0713C60.8991 83.8796 103.502 93.7847 103.502 93.7847C102.621 88.7771 108.359 77.7852 95.0805 64.0281C85.448 54.0542 73.2974 54.068 67.3253 54.8246C62.6742 52.1007 56.2893 49.1154 47.4274 46.1026C49.0925 45.7312 50.6887 45.3184 52.051 44.8782C82.5445 60.011 94.6126 32.4556 94.6126 32.4556C62.6604 15.9058 51.6932 34.354 48.9686 40.7786C45.0193 41.8379 39.6664 42.6771 37.8638 42.9385C26.2223 38.7976 16.4798 32.5794 8.88392 26.43C11.7048 26.2786 14.9936 25.8934 18.0072 25.013C43.6845 35.5922 60.0872 5.9044 60.0872 5.9044C28.5341 -11.6221 15.833 14.8465 13.3561 21.1197C9.21417 21.7938 5.05847 21.7388 3.33839 21.67C-5.262 13.7597 -9.92685 7.08751 -10.0232 6.94994L-14 9.67384C-13.5597 10.3204 -7.57379 18.8636 3.32463 28.1771C4.3842 30.0618 9.11785 38.7838 9.44811 46.1301C-10.2158 64.3995 19.6585 98.2282 19.6585 98.2282L22.617 77.3174C24.7499 62.1984 18.1173 51.688 14.2643 47.0106C14.2781 42.8697 13.0947 38.4261 11.6773 34.6567C16.0945 37.7796 21.0758 40.7786 26.5526 43.4337L26.5388 43.4475Z" fill="#8BD2A0"/>
